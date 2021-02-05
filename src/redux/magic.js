@@ -9,3 +9,15 @@ let reducers = combineReducers({
 });
 let store = createStore(reducers);
 export default store;
+
+import { combineReducers, createStore } from "redux";
+import dialogReduser from "./dialogdsPageReduser";
+import friendsReduser from "./friendsPageReduser";
+import profileReduser from "./profilePageReduser";
+let reducers = combineReducers({
+	profile: profileReduser,
+	dialog: dialogReduser,
+	friends: friendsReduser
+});
+let store = createStore(reducers);
+export default store;

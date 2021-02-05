@@ -17,24 +17,24 @@ import Friends from './component/Friends/Friends';
 const App = (props) => {
 
 	return (
-		<BrowserRouter>
-			<div className='app-wraper'>
-				<Header />
-				<Navbar />
-				<div className='app-wraper-content'>
-					<Route path='/profile' render={() => <Profile data={props.state.profilePage}
-						dispatch={props.dispatch} />} />
-					<Route path='/friends' render={() => <Friends data={props.state.friendsPage} />} />
-					<Route path='/dialogs' render={() => <Dialogs data={props.state.dialogsPage}
-						dispatch={props.dispatch} />} />
-					<Route path='/music' render={() => <Music />} />
-					<Route path='/news' render={() => <News />} />
-					<Route path='/settings' render={() => <Settings />} />
 
-				</div>
+		<div className='app-wraper'>
+			<Header />
+			<Navbar />
+			<div className='app-wraper-content'>
+				<Route path='/profile' render={() => <Profile data={props.state.profilePage}
+					dispatch={props.dispatch} />} />
+				<Route path='/friends' render={() => <Friends data={props.state.friendsPage} />} />
+				<Route path='/dialogs' render={() => <Dialogs data={props.state.dialogsPage}
+					dispatch={props.dispatch} />} />
+				<Route path='/music' render={() => <Music />} />
+				<Route path='/news' render={() => <News />} />
+				<Route path='/settings' render={() => <Settings />} />
 
-			</div >
-		</BrowserRouter>
+			</div>
+
+		</div >
+
 	);
 }
 
