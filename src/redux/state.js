@@ -1,3 +1,7 @@
+import dialogReduser from "./dialogdsPageReduser";
+import profileReduser from "./profilePageReduser";
+import friendsReduser from "./friendsPageReduser";
+
 let store = {
 	_callSubscriber() {
 		console.log("kz");
@@ -44,31 +48,13 @@ let store = {
 	},
 
 	dispatch(action) {
-		if (action.type === 'ADD-POST') {
-			this._state.profilePage.postsData.push({
-				id: 21, count: '0', name: 'artur', value: this._state.profilePage.newPostT
-			});
-			this._state.profilePage.newPostT = '';
-			this._callSubscriber(this._state);
-
-		} else if (action.type === 'ADD-MESSAGE') {
-			let newMess = {
-				id: "21", value: this._state.dialogsPage.newTet
-			};
-			this._state.dialogsPage.messagesData.push(newMess);
-			this._state.dialogsPage.newTet = '';
-			this._callSubscriber(this._state);
-
-		} else if (action.type === 'NEW-TEXT-MESSAGE') {
-			this._state.dialogsPage.newTet = action.str;
-			this._callSubscriber(this._state);
-
-		} else if (action.type === 'NEW-TEXT-POST') {
-			this._state.profilePage.newPostT = action.str;
-			this._callSubscriber(this._state);
-
-		}
-	}
+		this._state.profilePage = profileReduser(this._state.profilePage, action);
+		this._state.dialogsPage = dialogReduser(this._state.dialogsPage, action);
+		this._state.friendsPage = friendsReduser(this._state.friendsPage, action);
+		this._callSubscriber(this._state);
+	},
 
 }
+
+
 export default store;

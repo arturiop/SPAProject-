@@ -2,6 +2,7 @@ import DialogItem from './DialogItem/DialogsItem';
 import s from './Dialogs.module.css';
 import Messages from './Messages/Messages';
 import React from 'react';
+import { addCreactorMessage, addCreactorTextMessage } from '../../redux/dialogdsPageReduser';
 
 
 const Dialogs = (props) => {
@@ -13,13 +14,12 @@ const Dialogs = (props) => {
 
 	let l = React.createRef();
 	let newMessagess = () => {
-
-		props.dispatch({ type: 'ADD-MESSAGE' });
+		props.dispatch(addCreactorMessage());
 	}
 
-	let tet = () => {
-		let t = l.current.value;
-		props.dispatch({ type: 'NEW-TEXT-MESSAGE', str: t });
+	let tet = (event) => {
+		let t = event.target.value;
+		props.dispatch(addCreactorTextMessage(t));
 	};
 
 	return (
@@ -32,7 +32,7 @@ const Dialogs = (props) => {
 				{messagesElements}
 
 				<div className={s.forSends}>
-					<textarea value={props.data.newTet} onChange={tet} ref={l} />
+					<textarea value={props.data.newTet} onChange={tet} placeholder='Enter text' />
 					<button onClick={newMessagess}>Send</button>
 				</div>
 			</div>
