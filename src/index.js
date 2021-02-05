@@ -1,15 +1,24 @@
-import React from 'react';
+
+import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import store from "./redux/state";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+
+let rerenderPage = (state) => {
+	ReactDOM.render(
+		<App state={state} newPost={store.newPost.bind(store)}
+			newTeForPost={store.newTeForPost.bind(store)}
+			newTet={store.newTet.bind(store)}
+			newMessage={store.newMessage.bind(store)} />,
+		document.getElementById('root')
+	);
+}
+
+rerenderPage(store.getState());
+
+store.subscribe(rerenderPage);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

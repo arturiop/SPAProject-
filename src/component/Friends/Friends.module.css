@@ -1,0 +1,24 @@
+.friends {
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.img {
+	width: 100px;
+	height: 100px;
+}
+.friends a {
+	text-decoration: none;
+	color: black;
+	margin-left: 20px;
+	padding-top: 10px;
+}
+.wraperFrends {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.friend {
+	margin: 20px;
+	display: flex;
+}

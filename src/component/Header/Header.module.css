@@ -1,0 +1,8 @@
+.header.active {
+	grid-area: h;
+	background-color: aqua;
+}
+.img {
+	width: 120px;
+	height: 60px;
+}
