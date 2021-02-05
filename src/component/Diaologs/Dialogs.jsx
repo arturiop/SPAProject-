@@ -13,13 +13,13 @@ const Dialogs = (props) => {
 
 	let l = React.createRef();
 	let newMessagess = () => {
-		let text = l.current.value;
-		props.newMessage(text);
+
+		props.dispatch({ type: 'ADD-MESSAGE' });
 	}
 
 	let tet = () => {
 		let t = l.current.value;
-		props.newTet(t);
+		props.dispatch({ type: 'NEW-TEXT-MESSAGE', str: t });
 	};
 
 	return (

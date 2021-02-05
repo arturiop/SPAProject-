@@ -8,10 +8,7 @@ import store from "./redux/state";
 
 let rerenderPage = (state) => {
 	ReactDOM.render(
-		<App state={state} newPost={store.newPost.bind(store)}
-			newTeForPost={store.newTeForPost.bind(store)}
-			newTet={store.newTet.bind(store)}
-			newMessage={store.newMessage.bind(store)} />,
+		<App state={state} dispatch={store.dispatch.bind(store)} />,
 		document.getElementById('root')
 	);
 }

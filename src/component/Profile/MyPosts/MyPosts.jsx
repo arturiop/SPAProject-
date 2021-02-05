@@ -7,13 +7,12 @@ const MyPosts = (props) => {
 
 	let postT = React.createRef();
 	let addPost = () => {
-		let t = postT.current.value;
-		props.newPost(t);
+		props.dispatch({ type: 'ADD-POST' });
 	}
 
 	let changeT = () => {
 		let t = postT.current.value;
-		props.newTeForPost(t);
+		props.dispatch({ type: 'NEW-TEXT-POST', str: t });
 	}
 
 	return (

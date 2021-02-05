@@ -7,7 +7,7 @@ const Profile = (props) => {
 	return (
 		<div className={s.content}>
 			<ProfileInfo />
-			<MyPosts post={props.data} newTeForPost={props.newTeForPost} newPost={props.newPost} />
+			<MyPosts post={props.data} dispatch={props.dispatch} />
 		</div>
 
 	);

@@ -16,7 +16,7 @@ let store = {
 				{ id: '2', value: 'HiBroo' },
 				{ id: '3', value: 'White Power' },
 				{ id: '4', value: 'Yo Arturio' },
-				{ id: '5', value: 'Idi nahui pidr' },
+				{ id: '5', value: 'hola' },
 			],
 			newTet: '',
 		},
@@ -36,39 +36,39 @@ let store = {
 			]
 		},
 	},
+	subscribe(observer) {
+		this._callSubscriber = observer;
+	},
 	getState() {
 		return this._state;
 	},
-	newPost() {
-		this._state.profilePage.postsData.push({
-			id: 21, count: '0', name: 'artur', value: this._state.profilePage.newPostT
-		});
-		this._state.profilePage.newPostT = '';
-		this._callSubscriber(this._state);
-	},
 
-	newTeForPost(str) {
-		debugger;
-		this._state.profilePage.newPostT = str;
-		this._callSubscriber(this._state);
-	},
+	dispatch(action) {
+		if (action.type === 'ADD-POST') {
+			this._state.profilePage.postsData.push({
+				id: 21, count: '0', name: 'artur', value: this._state.profilePage.newPostT
+			});
+			this._state.profilePage.newPostT = '';
+			this._callSubscriber(this._state);
 
-	newTet(str) {
-		this._state.dialogsPage.newTet = str;
-		this._callSubscriber(this._state);
-	},
+		} else if (action.type === 'ADD-MESSAGE') {
+			let newMess = {
+				id: "21", value: this._state.dialogsPage.newTet
+			};
+			this._state.dialogsPage.messagesData.push(newMess);
+			this._state.dialogsPage.newTet = '';
+			this._callSubscriber(this._state);
 
-	newMessage() {
-		let newMess = {
-			id: "21", value: this._state.dialogsPage.newTet
-		};
-		this._state.dialogsPage.messagesData.push(newMess);
-		this._state.dialogsPage.newTet = '';
-		this._callSubscriber(this._state);
+		} else if (action.type === 'NEW-TEXT-MESSAGE') {
+			this._state.dialogsPage.newTet = action.str;
+			this._callSubscriber(this._state);
 
-	},
-	subscribe(observer) {
-		this._callSubscriber = observer;
+		} else if (action.type === 'NEW-TEXT-POST') {
+			this._state.profilePage.newPostT = action.str;
+			this._callSubscriber(this._state);
+
+		}
 	}
+
 }
 export default store;

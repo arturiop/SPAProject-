@@ -23,12 +23,10 @@ const App = (props) => {
 				<Navbar />
 				<div className='app-wraper-content'>
 					<Route path='/profile' render={() => <Profile data={props.state.profilePage}
-						newPost={props.newPost}
-						newTeForPost={props.newTeForPost} />} />
+						dispatch={props.dispatch} />} />
 					<Route path='/friends' render={() => <Friends data={props.state.friendsPage} />} />
 					<Route path='/dialogs' render={() => <Dialogs data={props.state.dialogsPage}
-						newMessage={props.newMessage}
-						newTet={props.newTet} />} />
+						dispatch={props.dispatch} />} />
 					<Route path='/music' render={() => <Music />} />
 					<Route path='/news' render={() => <News />} />
 					<Route path='/settings' render={() => <Settings />} />
