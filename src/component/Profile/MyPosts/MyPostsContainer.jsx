@@ -1,26 +1,25 @@
 
-import React from 'react';
-import StoreCont from '../../../ContComponent';
+import { connect } from 'react-redux';
 import { addCreactorPost, addCreactorTextPost } from '../../../redux/profilePageReduser';
 import MyPosts from './MyPosts';
 
-const MyPostsContainer = (props) => {
-	return (
-		<StoreCont.Consumer>
-			{(store) => {
-				let state = store.getState().profilePage;
-
-				let addPost = () => {
-					store.dispatch(addCreactorPost());
-				}
-
-				let changeT = (t) => {
-					store.dispatch(addCreactorTextPost(t));
-				}
-				return (<MyPosts changeT={changeT} addPost={addPost} post={state} />);
-			}
-			}
-		</StoreCont.Consumer>
-	);
+let mapStateToProps = (state) => {
+	return {
+		post: state.profilePage,
+	}
 }
+let mapDispatchToProps = (dispatch) => {
+	return {
+		addPost: () => {
+			dispatch(addCreactorPost());
+		},
+		changeT: (t) => {
+			dispatch(addCreactorTextPost(t));
+		}
+	}
+
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+
 export default MyPostsContainer;

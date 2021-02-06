@@ -1,25 +1,26 @@
-import React from 'react';
-import StoreCont from '../../ContComponent';
+
+import { connect } from 'react-redux';
 import { addCreactorMessage, addCreactorTextMessage } from '../../redux/dialogdsPageReduser';
 import Dialogs from './Dialogs';
 
 
-const DialogsContainer = (props) => {
-	return (
-		<StoreCont.Consumer>
-			{ (store) => {
-				let state = store.getState().dialogsPage;
-				let newMessagess = () => {
-					store.dispatch(addCreactorMessage());
-				}
 
-				let tet = (t) => {
-					store.dispatch(addCreactorTextMessage(t));
-				};
-				return <Dialogs newMessagess={newMessagess} tet={tet} data={state} />
-			}
-			}
-		</StoreCont.Consumer>
-	);
+let toState = (state) => {
+	return {
+		data: state.dialogsPage,
+	}
 }
+
+let toDispatch = (dispatch) => {
+	return {
+		newMessagess: () => {
+			dispatch(addCreactorMessage());
+		},
+		tet: (t) => {
+			dispatch(addCreactorTextMessage(t));
+		}
+	}
+}
+const DialogsContainer = connect(toState, toDispatch)(Dialogs);
+
 export default DialogsContainer;
