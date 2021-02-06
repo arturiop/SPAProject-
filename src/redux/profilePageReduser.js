@@ -12,17 +12,20 @@ let initialState = {
 
 const profileReduser = (state = initialState, action) => {
 	switch (action.type) {
-		case ADD_POST:
-			state.postsData.push({
+		case ADD_POST: {
+			let copyState = { ...state };
+			copyState.postsData = [...state.postsData];
+			copyState.postsData.push({
 				id: 21, count: '0', name: 'artur', value: state.newPostT
 			});
-			state.newPostT = '';
-			return state;
-
-		case NEW_TEXT_POST:
-			state.newPostT = action.str;
-			return state;
-
+			copyState.newPostT = '';
+			return copyState;
+		}
+		case NEW_TEXT_POST: {
+			let copyState = { ...state };
+			copyState.newPostT = action.str;
+			return copyState;
+		}
 		default:
 			return state;
 	}

@@ -22,18 +22,21 @@ let initialState = {
 const dialogReduser = (state = initialState, action) => {
 
 	switch (action.type) {
-		case ADD_MESSAGE:
+		case ADD_MESSAGE: {
+			let stateCopy = { ...state };
+			stateCopy.messagesData = [...state.messagesData];
 			let newMess = {
 				id: "21", value: state.newTet
 			};
-			state.messagesData.push(newMess);
-			state.newTet = '';
-			return state;
-
-		case NEW_TEXT_MESSAGE:
-			state.newTet = action.str;
-			return state;
-
+			stateCopy.messagesData.push(newMess);
+			stateCopy.newTet = '';
+			return stateCopy;
+		}
+		case NEW_TEXT_MESSAGE: {
+			let stateCopy = { ...state };
+			stateCopy.newTet = action.str;
+			return stateCopy;
+		}
 		default:
 			return state;
 	}
