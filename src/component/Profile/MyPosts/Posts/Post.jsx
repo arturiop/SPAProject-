@@ -1,9 +1,7 @@
 import s from './Post.module.css';
 
 const Post = (props) => {
-	function i() {
-		return "idi nahui";
-	}
+
 	let response = "abubandit";
 
 	const ii = new Date().toLocaleTimeString();

@@ -2,7 +2,7 @@ import DialogItem from './DialogItem/DialogsItem';
 import s from './Dialogs.module.css';
 import Messages from './Messages/Messages';
 import React from 'react';
-import { addCreactorMessage, addCreactorTextMessage } from '../../redux/dialogdsPageReduser';
+
 
 
 const Dialogs = (props) => {
@@ -12,14 +12,13 @@ const Dialogs = (props) => {
 	let messagesElements = props.data.messagesData
 		.map(message => <Messages message={message} />);
 
-	let l = React.createRef();
 	let newMessagess = () => {
-		props.dispatch(addCreactorMessage());
+		props.newMessagess();
 	}
 
 	let tet = (event) => {
 		let t = event.target.value;
-		props.dispatch(addCreactorTextMessage(t));
+		props.tet(t);
 	};
 
 	return (
