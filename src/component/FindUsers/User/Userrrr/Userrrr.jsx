@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
 import s from './Userrrs.module.css';
+import userIcon from '../../../../img/images.png';
 const Userrr = (props) => {
 	let item = props.member;
 	let changeF = () => {
@@ -11,7 +12,7 @@ const Userrr = (props) => {
 	return (
 		<div className={s.content}>
 			<div className={s.img_and_bt}>
-				<img className={s.photo} src={item.picture} />
+				<img className={s.photo} src={item.picture != null ? item.picture : userIcon} />
 				<div>
 					{item.follow
 						? <button onClick={changeUF} className={s.button}>Unfollow</button>
