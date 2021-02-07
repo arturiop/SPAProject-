@@ -8,6 +8,7 @@ import Settings from './component/Settings/Settings';
 import News from './component/News/News';
 import Friends from './component/Friends/Friends';
 import DialogsContainer from './component/Diaologs/DialogsContainer';
+import FindUsers from './component/FindUsers/FindUsers';
 
 
 
@@ -20,10 +21,11 @@ const App = (props) => {
 			<Navbar />
 			<div className='app-wraper-content'>
 				<Route path='/profile' render={() => <Profile />} />
-				{/* <Route path='/friends' render={() => <Friends />} /> */}
+				<Route path='/friends' render={() => <Friends />} />
 				<Route path='/dialogs' render={() => <DialogsContainer />} />
 				<Route path='/music' render={() => <Music />} />
 				<Route path='/news' render={() => <News />} />
+				<Route path='/find/users' render={() => <FindUsers />} />
 				<Route path='/settings' render={() => <Settings />} />
 
 			</div>

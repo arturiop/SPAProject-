@@ -1,0 +1,22 @@
+.photo {
+	width: 100px;
+	height: 100px;
+}
+.button {
+	margin: 10px 0px 30px;
+	width: 100px;
+	height: 30px;
+	background-color: teal;
+	color: white;
+}
+.content {
+	display: grid;
+	grid-template-columns: 2fr 10fr;
+}
+.img_and_bt {
+	display: flex;
+	flex-direction: column;
+}
+.data {
+	padding: 5px;
+}

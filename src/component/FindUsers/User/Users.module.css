@@ -1,0 +1,17 @@
+.img {
+	width: 50px;
+	height: 50px;
+}
+.button {
+	width: 200px;
+	height: 40px;
+	background-color: teal;
+	color: white;
+	margin-left: 200px;
+}
+.cont {
+	color: blue;
+	width: 350px;
+	height: 50px;
+	background-color: crimson;
+}
