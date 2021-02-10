@@ -5,22 +5,16 @@ import Dialogs from './Dialogs';
 
 
 
-let toState = (state) => {
+let mapStateToProps = (state) => {
 	return {
 		data: state.dialogsPage,
 	}
 }
 
-let toDispatch = (dispatch) => {
-	return {
-		newMessagess: () => {
-			dispatch(addCreactorMessage());
-		},
-		tet: (t) => {
-			dispatch(addCreactorTextMessage(t));
-		}
-	}
-}
-const DialogsContainer = connect(toState, toDispatch)(Dialogs);
+
+const DialogsContainer = connect(mapStateToProps, {
+	newMessagess: addCreactorMessage,
+	tet: addCreactorTextMessage
+})(Dialogs);
 
 export default DialogsContainer;

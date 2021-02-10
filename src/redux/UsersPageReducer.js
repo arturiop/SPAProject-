@@ -4,16 +4,18 @@ const UNFOLLOW = "UNFOLOW";
 const SET_USERS = "SET_USERS";
 const CURRENT = "CURRENT";
 const TOTAL_COUNT = "TOTAL_COUNT";
+const SWITCH_FETCH = "SWITCH_FETCH";
 
 let initializState = {
 	userData: [],
 	pageTotal: 20,
-	pageCount: 90,
-	currentPage: 1
+	pageCount: 3,
+	currentPage: 1,
+	isFetching: false
 
 };
 
-const UserReducer = (state = initializState, action) => {
+const userReducer = (state = initializState, action) => {
 	switch (action.type) {
 		case FOLLOW:
 			return {
@@ -46,6 +48,9 @@ const UserReducer = (state = initializState, action) => {
 		case TOTAL_COUNT:
 			return { ...state, pageTotal: action.count }
 
+		case SWITCH_FETCH:
+			return { ...state, isFetching: action.fetching }
+
 		default:
 			return state;
 	}
@@ -54,10 +59,12 @@ const UserReducer = (state = initializState, action) => {
 
 
 
-export const followAC = (userId) => ({ type: FOLLOW, userId });
-export const unFollowAC = (userId) => ({ type: UNFOLLOW, userId });
+export const follow = (userId) => ({ type: FOLLOW, userId });
+export const unFollow = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setCurrent = (p) => ({ type: CURRENT, p });
-export const setTotalUsersAC = (count) => ({ type: TOTAL_COUNT, count });
+export const setTotalUsers = (count) => ({ type: TOTAL_COUNT, count });
+export const switchFetch = (fetching) => ({ type: SWITCH_FETCH, fetching });
 
-export default UserReducer;
+
+export default userReducer;

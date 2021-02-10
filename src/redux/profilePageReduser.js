@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const NEW_TEXT_POST = 'NEW-TEXT-POST';
+const SET_PROFILE = 'SET_PROFILE';
 
 let initialState = {
 	postsData: [
@@ -8,6 +9,7 @@ let initialState = {
 		{ id: '1', count: '2', name: 'Sanya', value: 'hi' }
 	],
 	newPostT: '',
+	profile: null,
 };
 
 const profileReduser = (state = initialState, action) => {
@@ -26,8 +28,11 @@ const profileReduser = (state = initialState, action) => {
 				...state,
 				newPostT: action.str
 			};
-
-
+		}
+		case SET_PROFILE: {
+			return {
+				...state, profile: action.profile
+			}
 		}
 		default:
 			return state;
@@ -36,5 +41,6 @@ const profileReduser = (state = initialState, action) => {
 
 export const addCreactorPost = () => ({ type: ADD_POST });
 export const addCreactorTextPost = (t) => ({ type: NEW_TEXT_POST, str: t });
+export const setProfile = (profile) => ({ type: SET_PROFILE, profile });
 
 export default profileReduser;
