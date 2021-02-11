@@ -1,6 +1,8 @@
 import s from './Users.module.css';
 import userIcon from '../../../img/images.png';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { commonAPI } from '../../../redux/api/api';
 
 
 const Users = (props) => {
@@ -10,9 +12,9 @@ const Users = (props) => {
 	for (let i = 1; i <= pageC; i++) {
 		pageArray.push(i);
 	}
-	console.log(props.pageTotal);
 
 	return (
+
 		< div className={s.user} >
 			{
 				pageArray.map(item => {
@@ -40,11 +42,24 @@ const Users = (props) => {
 								<img className={s.photo}
 									src={(item.photos.small != null) ? item.photos.small : userIcon} />
 							</NavLink>
-							<div>{item.follow
-								? <button onClick={() => { props.unFollow(item.id) }}
-									className={s.button}>Unfollow</button>
-								: <button onClick={() => { props.follow(item.id) }}
-									className={s.button}>Follow</button>}
+							<div>{item.followed
+								? <button onClick={() => {
+									commonAPI.deletePiece(item.id)
+										.then(data => {
+											if (data.resultCode == 0) {
+												props.unFollow(item.id);
+											}
+										})
+								}}
+								>Unfollow</button>
+								: <button onClick={() => {
+									commonAPI.following(item.id)
+										.then(data => {
+											if (data.resultCode == 0) {
+												props.follow(item.id);
+											}
+										});
+								}} >Follow</button>}
 							</div>
 						</div>
 						<div className={s.data}>

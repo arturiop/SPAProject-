@@ -3,28 +3,31 @@ import { connect } from "react-redux";
 import { setUsers, unFollow, follow, setCurrent, setTotalUsers, switchFetch } from "../../redux/usersPageReducer";
 import Users from "./User/Users";
 import React from 'react';
-import * as axios from 'axios';
 import Preloader from "../common/Preloader";
+import { commonAPI } from "../../redux/api/api";
+
 
 
 
 class UsersContainer extends React.Component {
 
 	componentDidMount() {
+
 		this.props.switchFetch(true);
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageCount}`).then(response => {
-			this.props.switchFetch(false);
-			this.props.setUsers(response.data.items);
-			this.props.setTotalUsers(response.data.totalCount);
-		})
+		commonAPI.getUsers(this.props.currentPage, this.props.pageCount)
+			.then(data => {
+				this.props.switchFetch(false);
+				this.props.setUsers(data.items);
+				this.props.setTotalUsers(data.totalCount);
+			})
 	}
 	onChangeNumb = (numb) => {
 		this.props.setCurrent(numb);
 		this.props.switchFetch(true);
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${numb}&count=${this.props.pageCount}`)
-			.then(response => {
+		commonAPI.getUsers(numb, this.props.pageCount)
+			.then(data => {
 				this.props.switchFetch(false);
-				this.props.setUsers(response.data.items);
+				this.props.setUsers(data.items);
 			})
 	}
 

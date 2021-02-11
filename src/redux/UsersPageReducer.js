@@ -22,23 +22,24 @@ const userReducer = (state = initializState, action) => {
 				...state,
 				userData: [...state.userData].map(item => {
 					if (item.id === action.userId) {
-						return { ...item, follow: true }
+						return { ...item, followed: true }
 					}
 					return item;
 				})
 			}
 
-		case UNFOLLOW:
+		case UNFOLLOW: {
+
 			return {
 				...state,
 				userData: [...state.userData].map(item => {
 					if (item.id === action.userId) {
-						return { ...item, follow: false }
+						return { ...item, followed: false }
 					}
 					return item;
 				})
 			}
-
+		}
 		case SET_USERS:
 			return { ...state, userData: [...action.users] }
 
