@@ -2,6 +2,7 @@ import DialogItem from './DialogItem/DialogsItem';
 import s from './Dialogs.module.css';
 import Messages from './Messages/Messages';
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -20,6 +21,10 @@ const Dialogs = (props) => {
 		let t = event.target.value;
 		props.tet(t);
 	};
+
+	if (!props.isAuth) {
+		return <Redirect to='/login' />
+	}
 
 	return (
 

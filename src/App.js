@@ -9,6 +9,7 @@ import FriendsContainer from './component/Friends/FriendsContainer';
 import UsersContainer from './component/Users/UserContainer';
 import ProfileContainer from './component/Profile/ProfileContainer';
 import HeaderContainer from './component/Header/HeaderContainer';
+import Login from './component/login/Login';
 
 
 
@@ -27,6 +28,8 @@ const App = (props) => {
 				<Route path='/news' render={() => <News />} />
 				<Route path='/find/users' render={() => <UsersContainer />} />
 				<Route path='/settings' render={() => <Settings />} />
+				<Route path='/login' render={() => <Login />} />
+
 
 			</div>
 

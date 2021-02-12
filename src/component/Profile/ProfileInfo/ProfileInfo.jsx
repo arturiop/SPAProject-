@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import Preloader from '../../common/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStaus';
 
 const ProfileInfo = (props) => {
 
@@ -35,6 +36,8 @@ const ProfileInfo = (props) => {
 
 				</div>
 			</div>
+
+			<ProfileStatus />
 
 
 		</div >
