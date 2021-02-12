@@ -1,3 +1,6 @@
+import { connect } from "react-redux";
+import { commonAPI } from "./api/api";
+
 const ADD_POST = 'ADD-POST';
 const NEW_TEXT_POST = 'NEW-TEXT-POST';
 const SET_PROFILE = 'SET_PROFILE';
@@ -42,5 +45,14 @@ const profileReduser = (state = initialState, action) => {
 export const addCreactorPost = () => ({ type: ADD_POST });
 export const addCreactorTextPost = (t) => ({ type: NEW_TEXT_POST, str: t });
 export const setProfile = (profile) => ({ type: SET_PROFILE, profile });
+
+
+export const getUserTh = (userId) => {
+	return (dispatch) => {
+		commonAPI.getUser(userId)
+			.then(data => dispatch(setProfile(data)));
+	}
+}
+
 
 export default profileReduser;

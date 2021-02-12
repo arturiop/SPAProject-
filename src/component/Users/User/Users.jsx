@@ -1,8 +1,6 @@
 import s from './Users.module.css';
 import userIcon from '../../../img/images.png';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { commonAPI } from '../../../redux/api/api';
 
 
 const Users = (props) => {
@@ -14,13 +12,10 @@ const Users = (props) => {
 	}
 
 	return (
-
 		< div className={s.user} >
 			{
 				pageArray.map(item => {
-
 					let itemcount = props.currentPage;
-
 					if ((item >= (itemcount - 2)) && (item <= (itemcount + 2))) {
 						return (<span onClick={e => { props.onChangeNumb(item) }}
 							className={props.currentPage === item && s.thisPage}
@@ -43,23 +38,10 @@ const Users = (props) => {
 									src={(item.photos.small != null) ? item.photos.small : userIcon} />
 							</NavLink>
 							<div>{item.followed
-								? <button onClick={() => {
-									commonAPI.deletePiece(item.id)
-										.then(data => {
-											if (data.resultCode == 0) {
-												props.unFollow(item.id);
-											}
-										})
-								}}
-								>Unfollow</button>
-								: <button onClick={() => {
-									commonAPI.following(item.id)
-										.then(data => {
-											if (data.resultCode == 0) {
-												props.follow(item.id);
-											}
-										});
-								}} >Follow</button>}
+								? <button disabled={props.uses.toggleFetching.some(id => id === item.id)}
+									onClick={() => { props.unFollowTh(item.id) }}>Unfollow</button>
+								: <button disabled={props.uses.toggleFetching.some(id => id === item.id)}
+									onClick={() => { props.followTh(item.id) }} >Follow</button>}
 							</div>
 						</div>
 						<div className={s.data}>

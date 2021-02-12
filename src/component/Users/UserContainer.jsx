@@ -1,52 +1,27 @@
 
 import { connect } from "react-redux";
-import { setUsers, unFollow, follow, setCurrent, setTotalUsers, switchFetch } from "../../redux/usersPageReducer";
+import { getUsers, changePage, followTh, unFollowTh } from "../../redux/usersPageReducer";
 import Users from "./User/Users";
 import React from 'react';
 import Preloader from "../common/Preloader";
-import { commonAPI } from "../../redux/api/api";
-
-
-
 
 class UsersContainer extends React.Component {
 
 	componentDidMount() {
-
-		this.props.switchFetch(true);
-		commonAPI.getUsers(this.props.currentPage, this.props.pageCount)
-			.then(data => {
-				this.props.switchFetch(false);
-				this.props.setUsers(data.items);
-				this.props.setTotalUsers(data.totalCount);
-			})
+		this.props.getUsers(this.props.currentPage, this.props.pageCount);
 	}
+
 	onChangeNumb = (numb) => {
-		this.props.setCurrent(numb);
-		this.props.switchFetch(true);
-		commonAPI.getUsers(numb, this.props.pageCount)
-			.then(data => {
-				this.props.switchFetch(false);
-				this.props.setUsers(data.items);
-			})
+		this.props.changePage(numb, this.props.pageCount);
 	}
 
 	render() {
 		return <>
 			{this.props.isFetching ? <Preloader /> : null}
-			<Users uses={this.props.uses}
-				follow={this.props.follow}
-				unFollow={this.props.unFollow}
-				setCurrent={this.props.setCurrent}
-				onChangeNumb={this.onChangeNumb}
-				pageTotal={this.props.pageTotal}
-				pageCount={this.props.pageCount}
-				currentPage={this.props.currentPage}
-			/>
+			<Users uses={this.props.uses} {...this.props} onChangeNumb={this.onChangeNumb} />
 		</>
 	}
 }
-
 
 let mapStateToProps = (state) => ({
 	uses: state.users,
@@ -54,9 +29,10 @@ let mapStateToProps = (state) => ({
 	pageCount: state.users.pageCount,
 	currentPage: state.users.currentPage,
 	isFetching: state.users.isFetching,
+	toggleFetching: state.users.toggleFetching,
 });
 
 
 export default connect(mapStateToProps, {
-	follow, unFollow, setUsers, setCurrent, setTotalUsers, switchFetch
+	getUsers, changePage, followTh, unFollowTh
 })(UsersContainer);

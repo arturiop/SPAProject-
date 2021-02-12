@@ -1,45 +1,44 @@
 import axios from "axios";
-const BASE_URL = 'https://social-network.samuraijs.com/api/1.0/';
+
+
+const instance = axios.create({
+	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+	withCredentials: true,
+	headers: {
+		"API-KEY": "2df9b762-0489-4f0f-ae9b-c0e61fffc513"
+	}
+});
 
 export const commonAPI = {
 	getUsers(currnt = 1, pgCount = 10) {
 		return (
-			axios.get(BASE_URL + `users?page=${currnt}&count=${pgCount}`, {
-				withCredentials: true
-			}).then(response => response.data)
+			instance.get(`users?page=${currnt}&count=${pgCount}`)
+				.then(response => response.data)
 		);
 	},
-	deletePiece(id) {
+	unfollow(id) {
 		return (
-			axios.delete(BASE_URL + `follow/${id}`, {
-				withCredentials: true,
-				headers: {
-					"API-KEY": "2df9b762-0489-4f0f-ae9b-c0e61fffc513"
-				}
-			}).then(response => response.data)
+			instance.delete(`follow/${id}`)
+				.then(response => response.data)
 		);
 	},
-	following(id) {
+	follow(id) {
 		return (
-			axios.post(BASE_URL + `follow/${id}`, {}, {
-				withCredentials: true,
-				headers: {
-					"API-KEY": "2df9b762-0489-4f0f-ae9b-c0e61fffc513"
-				}
-			}).then(response => response.data)
+			instance.post(`follow/${id}`)
+				.then(response => response.data)
 		);
-
 	},
 	autoraithe() {
 		return (
-			axios.get(BASE_URL + `auth/me`, {
+			instance.get(`auth/me`, {
 				withCredentials: true
 			}).then(response => response.data)
 		);
 	},
 	getUser(id) {
 		return (
-			axios.get(BASE_URL + `profile/${id}`).then(response => response.data)
+			instance.get(`profile/${id}`)
+				.then(response => response.data)
 		);
 	}
 
