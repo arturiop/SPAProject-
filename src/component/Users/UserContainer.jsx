@@ -4,6 +4,7 @@ import { getUsers, changePage, followTh, unFollowTh } from "../../redux/usersPag
 import Users from "./User/Users";
 import React from 'react';
 import Preloader from "../common/Preloader";
+import { getUser, getPageTotal, getPageCount, getCurrentPage, getIsFetching, getToggleFetching } from "../../redux/userSelect";
 
 class UsersContainer extends React.Component {
 
@@ -18,19 +19,20 @@ class UsersContainer extends React.Component {
 	render() {
 		return <>
 			{this.props.isFetching ? <Preloader /> : null}
-			<Users uses={this.props.uses} {...this.props} onChangeNumb={this.onChangeNumb} />
+			<Users {...this.props} onChangeNumb={this.onChangeNumb} />
 		</>
 	}
 }
 
 let mapStateToProps = (state) => ({
-	uses: state.users,
-	pageTotal: state.users.pageTotal,
-	pageCount: state.users.pageCount,
-	currentPage: state.users.currentPage,
-	isFetching: state.users.isFetching,
-	toggleFetching: state.users.toggleFetching,
+	uses: getUser(state),
+	pageTotal: getPageTotal(state),
+	pageCount: getPageCount(state),
+	currentPage: getCurrentPage(state),
+	isFetching: getIsFetching(state),
+	toggleFetching: getToggleFetching(state),
 });
+
 
 
 export default connect(mapStateToProps, {

@@ -1,38 +1,35 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post';
 import React from 'react';
+import { Form, Formik, Field } from 'formik';
+
 
 
 const MyPosts = (props) => {
 
 	let postsElements = props.post.postsData.map(post => <Post posts={post} />);
-
-	let postT = React.createRef();
-	let addPost = () => {
-		props.addPost();
-	}
-
-	let changeT = () => {
-		let t = postT.current.value;
-		props.changeT(t);
-	}
-
 	return (
 		<div className={s.postsBlock}>
 			My post
-			<div>
-				<div>
-					<textarea onChange={changeT} value={props.post.newPostT} ref={postT} />
-				</div>
-				<div>
-					<button onClick={addPost}>Add</button>
-				</div>
-			</div>
-			<div className={s.post}>
-				{postsElements}
-			</div>
+			<Formik
+				initialValues={{
+					postText: '',
+				}}
+				onSubmit={(value, { resetForm }) => {
+					props.addPost(value.postText);
+					resetForm({ value: '' });
+				}}
+			>
+				{(props) => (
+					<Form>
+						<Field component={'textarea'} name={'postText'} placeholder={'write any one'} />
+						<button type='submit'>ADD</button>
+					</Form>
+				)}
+			</Formik>
+			{postsElements}
 		</div >
-
 	);
 }
+
 export default MyPosts;

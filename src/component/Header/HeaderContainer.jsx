@@ -1,16 +1,11 @@
 import Header from './Header';
 import React from 'react';
-import { autoraithTh } from '../../redux/authReduser';
+import { singOutTh } from '../../redux/authReduser';
 import { connect } from 'react-redux';
 
 
 
 class HeaderContainer extends React.Component {
-
-	componentDidMount() {
-		this.props.autoraithTh();
-
-	}
 
 	render() {
 		return (
@@ -22,9 +17,10 @@ class HeaderContainer extends React.Component {
 let mapStateToProps = (state) => {
 	return {
 		isAuth: state.auth.isAuth,
-		login: state.auth.login
+		login: state.auth.login,
+		uID: state.auth.userId
 	}
 
 };
 
-export default connect(mapStateToProps, { autoraithTh })(HeaderContainer);
+export default connect(mapStateToProps, { singOutTh })(HeaderContainer);

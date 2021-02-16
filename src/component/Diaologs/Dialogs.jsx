@@ -2,7 +2,8 @@ import DialogItem from './DialogItem/DialogsItem';
 import s from './Dialogs.module.css';
 import Messages from './Messages/Messages';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Form, Formik, Field } from 'formik';
+
 
 
 
@@ -13,18 +14,6 @@ const Dialogs = (props) => {
 	let messagesElements = props.data.messagesData
 		.map(message => <Messages message={message} />);
 
-	let newMessagess = () => {
-		props.newMessagess();
-	}
-
-	let tet = (event) => {
-		let t = event.target.value;
-		props.tet(t);
-	};
-
-	if (!props.isAuth) {
-		return <Redirect to='/login' />
-	}
 
 	return (
 
@@ -35,10 +24,22 @@ const Dialogs = (props) => {
 			<div className={s.message}>
 				{messagesElements}
 
-				<div className={s.forSends}>
-					<textarea value={props.data.newTet} onChange={tet} placeholder='Enter text' />
-					<button onClick={newMessagess}>Send</button>
-				</div>
+				<Formik
+					initialValues={{
+						message: '',
+					}}
+					onSubmit={(value, { resetForm }) => {
+						props.newMessagess(value.message);
+						resetForm({ value: '' })
+					}}
+				>
+					{(props) => (
+						<Form>
+							<Field name={'message'} placeholder={'write message'} />
+							<button type={'submit'}>Send</button>
+						</Form>
+					)}
+				</Formik>
 			</div>
 
 		</div>

@@ -1,6 +1,6 @@
 
 import { connect } from 'react-redux';
-import { addCreactorPost, addCreactorTextPost } from '../../../redux/profilePageReduser';
+import { addCreactorPost } from '../../../redux/profilePageReduser';
 import MyPosts from './MyPosts';
 
 let mapStateToProps = (state) => {
@@ -10,8 +10,7 @@ let mapStateToProps = (state) => {
 }
 
 const MyPostsContainer = connect(mapStateToProps, {
-	addPost: addCreactorPost,
-	changeT: addCreactorTextPost
+	addPost: addCreactorPost
 })(MyPosts);
 
 export default MyPostsContainer;

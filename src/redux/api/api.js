@@ -9,7 +9,8 @@ const instance = axios.create({
 	}
 });
 
-export const commonAPI = {
+
+export const usersAPI = {
 	getUsers(currnt = 1, pgCount = 10) {
 		return (
 			instance.get(`users?page=${currnt}&count=${pgCount}`)
@@ -27,21 +28,62 @@ export const commonAPI = {
 			instance.post(`follow/${id}`)
 				.then(response => response.data)
 		);
+	}
+}
+
+export const authAPI = {
+
+	login(data) {
+		return (
+			instance.post('auth/login',
+				{ email: data.login, password: data.password })
+				.then(response => {
+					return response.data
+				})
+		);
 	},
+	logout() {
+		return (
+			instance.delete('auth/login'
+			)
+				.then(response => {
+					return response.data
+				})
+		);
+	},
+
 	autoraithe() {
 		return (
 			instance.get(`auth/me`, {
 				withCredentials: true
 			}).then(response => response.data)
 		);
-	},
-	getUser(id) {
+	}
+}
+
+export const profileAPI = {
+	getProfile(id) {
 		return (
 			instance.get(`profile/${id}`)
 				.then(response => response.data)
 		);
+	},
+
+	getStatus(userId) {
+		return (
+			instance.get(`profile/status/${userId}`)
+		)
+	},
+
+	updateStatus(status) {
+		return (
+			instance.put(`profile/status/`, { status: status })
+		)
 	}
 
 }
+
+
+
 
 

@@ -5,6 +5,7 @@ import friendsReducer from "./friendsPageReduser";
 import userReducer from "./usersPageReducer";
 import authReduser from "./authReduser";
 import thunk from 'redux-thunk';
+import appReduser from "./appReduser";
 
 
 let reducers = combineReducers({
@@ -12,7 +13,8 @@ let reducers = combineReducers({
 	dialogsPage: dialogsReducer,
 	friends: friendsReducer,
 	users: userReducer,
-	auth: authReduser
+	auth: authReduser,
+	app: appReduser,
 });
 let store = createStore(reducers, applyMiddleware(thunk));
 window.store = store;

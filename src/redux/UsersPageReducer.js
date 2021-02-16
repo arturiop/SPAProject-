@@ -1,4 +1,4 @@
-import { commonAPI } from "./api/api";
+import { usersAPI } from "./api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLOW";
@@ -16,7 +16,6 @@ let initializState = {
 	currentPage: 1,
 	isFetching: false,
 	toggleFetching: [],
-
 };
 
 const userReducer = (state = initializState, action) => {
@@ -62,7 +61,7 @@ const userReducer = (state = initializState, action) => {
 				...state,
 				toggleFetching: action.fetching
 					? [...state.toggleFetching, action.userId]
-					: state.toggleFetching.filter(id => id != action.userId)
+					: state.toggleFetching.filter(id => id !== action.userId)
 			}
 
 		default:
@@ -83,9 +82,10 @@ export const toggleFetchingInProgres = (fetching, userId) => ({ type: TOGGLE_FET
 
 
 export const getUsers = (currentPage, pageCount) => {
+
 	return (dispatch) => {
 		dispatch(switchFetch(true));
-		commonAPI.getUsers(currentPage, pageCount)
+		usersAPI.getUsers(currentPage, pageCount)
 			.then(data => {
 				dispatch(switchFetch(false));
 				dispatch(setUsers(data.items));
@@ -98,7 +98,7 @@ export const changePage = (numb, pageCount) => {
 	return (dispatch) => {
 		dispatch(setCurrent(numb));
 		dispatch(switchFetch(true));
-		commonAPI.getUsers(numb, pageCount)
+		usersAPI.getUsers(numb, pageCount)
 			.then(data => {
 				dispatch(switchFetch(false));
 				dispatch(setUsers(data.items));
@@ -110,9 +110,9 @@ export const changePage = (numb, pageCount) => {
 export const unFollowTh = (userId) => {
 	return (dispatch) => {
 		dispatch(toggleFetchingInProgres(true, userId));
-		commonAPI.unfollow(userId)
+		usersAPI.unfollow(userId)
 			.then(data => {
-				if (data.resultCode == 0) {
+				if (data.resultCode === 0) {
 					dispatch(unFollow(userId));
 				}
 				dispatch(toggleFetchingInProgres(false, userId));
@@ -122,9 +122,9 @@ export const unFollowTh = (userId) => {
 export const followTh = (userId) => {
 	return (dispatch) => {
 		dispatch(toggleFetchingInProgres(true, userId));
-		commonAPI.follow(userId)
+		usersAPI.follow(userId)
 			.then(data => {
-				if (data.resultCode == 0) {
+				if (data.resultCode === 0) {
 					dispatch(follow(userId));
 				}
 				dispatch(toggleFetchingInProgres(false, userId));

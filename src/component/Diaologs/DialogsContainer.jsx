@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { addCreactorMessage, addCreactorTextMessage } from '../../redux/dialogdsPageReduser';
+import { addCreactorMessage } from '../../redux/dialogdsPageReduser';
 import { withAuthRedirect } from '../hoc/withAurhRedirect';
 import Dialogs from './Dialogs';
 
@@ -14,8 +14,7 @@ let mapStateToProps = (state) => {
 }
 
 
-export default compose(
+export default compose(withAuthRedirect,
 	connect(mapStateToProps, {
-		newMessagess: addCreactorMessage, tet: addCreactorTextMessage
-	}),
-	withAuthRedirect)(Dialogs);
+		newMessagess: addCreactorMessage
+	}))(Dialogs);

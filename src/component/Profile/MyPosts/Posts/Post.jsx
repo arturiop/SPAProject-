@@ -10,7 +10,7 @@ const Post = (props) => {
 
 		<div>
 			<div>{response}</div>
-			<img className={s.img} src="https://cdn4.iconfinder.com/data/icons/men-avatars-set-2-dot-version/380/13-512.png" />
+			<img className={s.img} alt='' src="https://cdn4.iconfinder.com/data/icons/men-avatars-set-2-dot-version/380/13-512.png" />
 			<span>{`${props.posts.name} `}</span>
 			<span>hi {ii}</span>
 			<div>

@@ -30,7 +30,7 @@ const Users = (props) => {
 			}
 
 			{
-				props.uses.userData.map(item =>
+				props.uses.map(item =>
 					<div className={s.content}>
 						<div className={s.img_and_bt}>
 							<NavLink to={`/profile/${item.id}`}>
@@ -38,9 +38,9 @@ const Users = (props) => {
 									src={(item.photos.small != null) ? item.photos.small : userIcon} />
 							</NavLink>
 							<div>{item.followed
-								? <button disabled={props.uses.toggleFetching.some(id => id === item.id)}
+								? <button disabled={props.toggleFetching.some(id => id === item.id)}
 									onClick={() => { props.unFollowTh(item.id) }}>Unfollow</button>
-								: <button disabled={props.uses.toggleFetching.some(id => id === item.id)}
+								: <button disabled={props.toggleFetching.some(id => id === item.id)}
 									onClick={() => { props.followTh(item.id) }} >Follow</button>}
 							</div>
 						</div>

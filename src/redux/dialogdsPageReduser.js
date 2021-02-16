@@ -1,5 +1,5 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const NEW_TEXT_MESSAGE = 'NEW-TEXT-MESSAGE';
+
 
 let initialState = {
 	dialogsData: [
@@ -16,36 +16,28 @@ let initialState = {
 		{ id: '4', value: 'Yo Arturio' },
 		{ id: '5', value: 'hola' },
 	],
-	newTet: '',
+
 };
 
 const dialogReduser = (state = initialState, action) => {
 
 	switch (action.type) {
 		case ADD_MESSAGE: {
-			let newMess = { id: "21", value: state.newTet };
+			let newMess = { id: "21", value: action.newT };
 			return {
 				...state,
-				messagesData: [...state.messagesData, newMess],
-				newTet: ''
+				messagesData: [...state.messagesData, newMess]
 			};
 
 		}
-		case NEW_TEXT_MESSAGE: {
-			return {
-				...state,
-				newTet: action.str
-			};
 
-
-		}
 		default:
 			return state;
 	}
 }
 
 
-export const addCreactorMessage = () => ({ type: ADD_MESSAGE });
-export const addCreactorTextMessage = (t) => ({ type: NEW_TEXT_MESSAGE, str: t });
+export const addCreactorMessage = (newT) => ({ type: ADD_MESSAGE, newT });
+
 
 export default dialogReduser;
