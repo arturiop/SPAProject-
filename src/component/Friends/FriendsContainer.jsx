@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import Friend from './Friend/Friend';
 import Friends from './Friends';
 
 let f1 = (state) => {

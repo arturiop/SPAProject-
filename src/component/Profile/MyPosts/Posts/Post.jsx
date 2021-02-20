@@ -1,10 +1,13 @@
+
+
+import { memo } from 'react';
 import s from './Post.module.css';
 
-const Post = (props) => {
 
-	let response = "abubandit";
+const Post = memo(props => {
 
 	const ii = new Date().toLocaleTimeString();
+	let response = "abubandit";
 
 	return (
 
@@ -17,8 +20,10 @@ const Post = (props) => {
 				<span>{props.posts.value}</span>
 				<span>{props.posts.count} like</span>
 			</div>
+			<button onClick={() => props.deletedPost(props.posts.id)}>Remove</button>
 
 		</div>
 	);
-}
+})
+
 export default Post;

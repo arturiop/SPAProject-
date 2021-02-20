@@ -7,7 +7,7 @@ const Friend = (props) => {
 
 	return (
 		<div className={s.friend}>
-			<img className={s.img} src={imgPath} />
+			<img className={s.img} src={imgPath} alt={''} />
 			<div className={s.wraperFrends}>
 				<NavLink to={"/" + props.source.id} >{`${props.source.name} ${props.source.lastName}`}</NavLink>
 				<NavLink to="/artur">Write message</NavLink>

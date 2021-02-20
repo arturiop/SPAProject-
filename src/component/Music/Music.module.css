@@ -1,0 +1,40 @@
+.allPage {
+}
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    "leftBorderr header accountt"
+    "leftBorderr contentt accountt"
+    "leftBorderr footerr accountt";
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-columns: 10% 1fr 15%;
+  grid-gap: 10px;
+  height: 100vh;
+  margin: 0;
+}
+.head {
+  border-style: groove;
+  grid-area: header;
+  position: sticky;
+  top: 0;
+}
+.leftBorder {
+  grid-area: leftBorderr;
+  position: sticky;
+  top: 0;
+}
+.content {
+  padding: 20px;
+  grid-area: contentt;
+  background-color: rgba(196, 185, 185, 0.932);
+  border-style: groove;
+}
+.account {
+  grid-area: accountt;
+}
+.footer {
+  background-color: aqua;
+  grid-area: footerr;
+  position: sticky;
+  bottom: 0;
+}

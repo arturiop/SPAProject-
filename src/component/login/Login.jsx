@@ -93,7 +93,6 @@ let mapStateToProps = (state) => {
 	return {
 		isAuth: state.auth.isAuth
 	}
-
 }
 
 

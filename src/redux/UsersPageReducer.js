@@ -32,7 +32,6 @@ const userReducer = (state = initializState, action) => {
 			}
 
 		case UNFOLLOW: {
-
 			return {
 				...state,
 				userData: [...state.userData].map(item => {
@@ -67,9 +66,7 @@ const userReducer = (state = initializState, action) => {
 		default:
 			return state;
 	}
-
 }
-
 
 
 export const follow = (userId) => ({ type: FOLLOW, userId });
@@ -81,60 +78,34 @@ export const switchFetch = (fetching) => ({ type: SWITCH_FETCH, fetching });
 export const toggleFetchingInProgres = (fetching, userId) => ({ type: TOGGLE_FETCHING, fetching, userId });
 
 
-export const getUsers = (currentPage, pageCount) => {
-
-	return (dispatch) => {
-		dispatch(switchFetch(true));
-		usersAPI.getUsers(currentPage, pageCount)
-			.then(data => {
-				dispatch(switchFetch(false));
-				dispatch(setUsers(data.items));
-				dispatch(setTotalUsers(data.totalCount));
-			})
-	}
+export const getUsers = (currentPage, pageCount) => async (dispatch) => {
+	dispatch(switchFetch(true));
+	let data = await usersAPI.getUsers(currentPage, pageCount)
+	dispatch(switchFetch(false));
+	dispatch(setUsers(data.items));
+	dispatch(setTotalUsers(data.totalCount));
 }
 
-export const changePage = (numb, pageCount) => {
-	return (dispatch) => {
-		dispatch(setCurrent(numb));
-		dispatch(switchFetch(true));
-		usersAPI.getUsers(numb, pageCount)
-			.then(data => {
-				dispatch(switchFetch(false));
-				dispatch(setUsers(data.items));
-			})
-	}
+export const changePage = (numb, pageCount) => async dispatch => {
+	dispatch(setCurrent(numb));
+	dispatch(switchFetch(true));
+	let data = await usersAPI.getUsers(numb, pageCount)
+	dispatch(switchFetch(false));
+	dispatch(setUsers(data.items));
 }
 
-
-export const unFollowTh = (userId) => {
-	return (dispatch) => {
-		dispatch(toggleFetchingInProgres(true, userId));
-		usersAPI.unfollow(userId)
-			.then(data => {
-				if (data.resultCode === 0) {
-					dispatch(unFollow(userId));
-				}
-				dispatch(toggleFetchingInProgres(false, userId));
-			})
-	}
-}
-export const followTh = (userId) => {
-	return (dispatch) => {
-		dispatch(toggleFetchingInProgres(true, userId));
-		usersAPI.follow(userId)
-			.then(data => {
-				if (data.resultCode === 0) {
-					dispatch(follow(userId));
-				}
-				dispatch(toggleFetchingInProgres(false, userId));
-			});
-	}
+export const unFollowTh = (userId) => async dispatch => {
+	dispatch(toggleFetchingInProgres(true, userId));
+	let data = await usersAPI.unfollow(userId)
+	if (data.resultCode === 0) dispatch(unFollow(userId));
+	dispatch(toggleFetchingInProgres(false, userId));
 }
 
-
-
-
-
+export const followTh = (userId) => async dispatch => {
+	dispatch(toggleFetchingInProgres(true, userId));
+	let data = await usersAPI.follow(userId)
+	if (data.resultCode === 0) dispatch(follow(userId));
+	dispatch(toggleFetchingInProgres(false, userId));
+}
 
 export default userReducer;

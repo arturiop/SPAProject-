@@ -5,15 +5,12 @@ import React from 'react';
 import { Form, Formik, Field } from 'formik';
 
 
-
-
 const Dialogs = (props) => {
 	let dialogElements = props.data.dialogsData
 		.map(dialog => <DialogItem dialog={dialog} />);
 
 	let messagesElements = props.data.messagesData
 		.map(message => <Messages message={message} />);
-
 
 	return (
 

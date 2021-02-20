@@ -1,21 +1,21 @@
 import './App.css';
 import Navbar from './component/Navbar/Navbar';
-import { Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
 import News from './component/News/News';
-import DialogsContainer from './component/Diaologs/DialogsContainer';
 import FriendsContainer from './component/Friends/FriendsContainer';
 import UsersContainer from './component/Users/UserContainer';
-import ProfileContainer from './component/Profile/ProfileContainer';
 import HeaderContainer from './component/Header/HeaderContainer';
 import Login from './component/login/Login';
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Suspense } from 'react';
+import { connect, Provider } from 'react-redux';
 import { initializeApp } from './redux/appReduser';
 import { compose } from 'redux';
-import Preloader from './component/common/Preloader';
-
+import Preloader from './component/common/Preloader/Preloader';
+import store from "./redux/reduxStore";
+const DialogsContainer = React.lazy(() => import('./component/Diaologs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./component/Profile/ProfileContainer'));
 
 class App extends React.Component {
 	componentDidMount() {
@@ -28,14 +28,21 @@ class App extends React.Component {
 		}
 
 		return (
-
 			<div className='app-wraper' >
 				<HeaderContainer />
 				<Navbar />
 				<div className='app-wraper-content'>
-					<Route path='/profile/:userId?' render={() => <ProfileContainer />} />
+					<Route path='/profile/:userId?' render={() => {
+						return <Suspense fallback={<div>loading...</div>}>
+							<ProfileContainer />
+						</Suspense>
+					}} />
 					<Route path='/friends' render={() => <FriendsContainer />} />
-					<Route path='/dialogs' render={() => <DialogsContainer />} />
+					<Route path='/dialogs' render={() => {
+						return <Suspense fallback={<div>loading...</div>}>
+							<DialogsContainer />
+						</Suspense>
+					}} />
 					<Route path='/music' render={() => <Music />} />
 					<Route path='/news' render={() => <News />} />
 					<Route path='/find/users' render={() => <UsersContainer />} />
@@ -51,9 +58,17 @@ let mapStateToProps = (state) => {
 	return {
 		init: state.app.initialized
 	}
-
 }
 
-export default compose(
-	withRouter,
-	connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+
+let MainApp = () => {
+	return (
+		<BrowserRouter>
+			<Provider store={store}>
+				<AppContainer />
+			</Provider>
+		</BrowserRouter>
+	)
+}
+export default MainApp;

@@ -2,11 +2,8 @@ import { autoraithTh } from "./authReduser";
 
 const INITIALIZED = "INITIALIZED";
 
-
-
 let initializState = {
 	initialized: false,
-
 };
 
 const appReduser = (state = initializState, action) => {
@@ -17,17 +14,13 @@ const appReduser = (state = initializState, action) => {
 				initialized: true
 			}
 		}
-
 		default:
 			return state;
 	}
-
 }
 
 
-
 export const setInitialized = () => ({ type: INITIALIZED });
-
 
 
 export const initializeApp = () => (dispatch) => {
@@ -35,9 +28,7 @@ export const initializeApp = () => (dispatch) => {
 	Promise.all([promise]).then(() => {
 		dispatch(setInitialized());
 	})
-
 };
-
 
 
 export default appReduser;

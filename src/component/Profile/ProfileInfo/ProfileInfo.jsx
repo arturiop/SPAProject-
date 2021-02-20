@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import Preloader from '../../common/Preloader';
+import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
-import ProfileStatus from './ProfileStaus';
+import ProfileStatusWithHook from './ProfileStatusWithHook';
+
 
 const ProfileInfo = (props) => {
 
@@ -37,7 +38,7 @@ const ProfileInfo = (props) => {
 				</div>
 			</div>
 
-			<ProfileStatus status={props.status} updateStatusTh={props.updateStatusTh} />
+			<ProfileStatusWithHook status={props.status} updateStatusTh={props.updateStatusTh} />
 
 
 		</div >

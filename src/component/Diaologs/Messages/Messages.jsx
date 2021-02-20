@@ -4,9 +4,7 @@ const Messages = (props) => {
 	return (
 
 		<div className={s.message}>
-
 			{props.message.value}
-
 		</div>
 	);
 }

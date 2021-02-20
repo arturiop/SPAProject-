@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getUsers, changePage, followTh, unFollowTh } from "../../redux/usersPageReducer";
 import Users from "./User/Users";
 import React from 'react';
-import Preloader from "../common/Preloader";
+import Preloader from "../common/Preloader/Preloader";
 import { getUser, getPageTotal, getPageCount, getCurrentPage, getIsFetching, getToggleFetching } from "../../redux/userSelect";
 
 class UsersContainer extends React.Component {
@@ -35,6 +35,4 @@ let mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps, {
-	getUsers, changePage, followTh, unFollowTh
-})(UsersContainer);
+export default connect(mapStateToProps, { getUsers, changePage, followTh, unFollowTh })(UsersContainer);

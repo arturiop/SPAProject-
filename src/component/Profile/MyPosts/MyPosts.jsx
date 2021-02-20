@@ -1,13 +1,11 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post';
-import React from 'react';
 import { Form, Formik, Field } from 'formik';
 
 
 
 const MyPosts = (props) => {
-
-	let postsElements = props.post.postsData.map(post => <Post posts={post} />);
+	let postsElements = props.post.postsData.map(post => <Post posts={post} deletedPost={props.deletedPost} key={DataTransferItem.toString()} />);
 	return (
 		<div className={s.postsBlock}>
 			My post
@@ -31,5 +29,6 @@ const MyPosts = (props) => {
 		</div >
 	);
 }
+
 
 export default MyPosts;
