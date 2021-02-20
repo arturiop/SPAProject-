@@ -10,12 +10,13 @@ const PageGenerator = (props) => {
 	return (
 		pageArray.map(item => {
 			if ((item >= (props.currentPage - 2)) && (item <= (props.currentPage + 2))) {
-				return (<div onClick={e => { props.onChangeNumb(item) }}
+				return (<span onClick={e => { props.onChangeNumb(item) }}
 					className={props.currentPage === item ? s.thisPage : null}
-				>{` ${item}`}</div>);
+				>{` ${item}`}</span>);
 			} else if (pageArray.length === item) {
-				return (<div onClick={e => { props.onChangeNumb(item) }} className={props.currentPage === item ? s.thisPage : null}>
-					<a href="">{` ...${item}`}</a></div>);
+				return (<span onClick={e => { props.onChangeNumb(item) }} 
+				className={props.currentPage === item ? s.thisPage : null}>
+					{` ...${item}`}</span>);
 			}
 		})
 
