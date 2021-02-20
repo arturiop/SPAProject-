@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SPAProject-/static/css/main.6c296c77.chunk.css",
-    "main.js": "/SPAProject-/static/js/main.84f047ed.chunk.js",
-    "main.js.map": "/SPAProject-/static/js/main.84f047ed.chunk.js.map",
-    "runtime-main.js": "/SPAProject-/static/js/runtime-main.346a16f0.js",
-    "runtime-main.js.map": "/SPAProject-/static/js/runtime-main.346a16f0.js.map",
-    "static/js/2.89c23cab.chunk.js": "/SPAProject-/static/js/2.89c23cab.chunk.js",
-    "static/js/2.89c23cab.chunk.js.map": "/SPAProject-/static/js/2.89c23cab.chunk.js.map",
+    "main.js": "/SPAProject-/static/js/main.84f7f50c.chunk.js",
+    "main.js.map": "/SPAProject-/static/js/main.84f7f50c.chunk.js.map",
+    "runtime-main.js": "/SPAProject-/static/js/runtime-main.4fb708e2.js",
+    "runtime-main.js.map": "/SPAProject-/static/js/runtime-main.4fb708e2.js.map",
+    "static/js/2.ff94a8e6.chunk.js": "/SPAProject-/static/js/2.ff94a8e6.chunk.js",
+    "static/js/2.ff94a8e6.chunk.js.map": "/SPAProject-/static/js/2.ff94a8e6.chunk.js.map",
     "static/css/3.c84be4b0.chunk.css": "/SPAProject-/static/css/3.c84be4b0.chunk.css",
-    "static/js/3.85525038.chunk.js": "/SPAProject-/static/js/3.85525038.chunk.js",
-    "static/js/3.85525038.chunk.js.map": "/SPAProject-/static/js/3.85525038.chunk.js.map",
+    "static/js/3.65615060.chunk.js": "/SPAProject-/static/js/3.65615060.chunk.js",
+    "static/js/3.65615060.chunk.js.map": "/SPAProject-/static/js/3.65615060.chunk.js.map",
     "static/css/4.7a0f0fcd.chunk.css": "/SPAProject-/static/css/4.7a0f0fcd.chunk.css",
     "static/js/4.154b1930.chunk.js": "/SPAProject-/static/js/4.154b1930.chunk.js",
     "static/js/4.154b1930.chunk.js.map": "/SPAProject-/static/js/4.154b1930.chunk.js.map",
@@ -19,12 +19,12 @@
     "static/css/3.c84be4b0.chunk.css.map": "/SPAProject-/static/css/3.c84be4b0.chunk.css.map",
     "static/css/4.7a0f0fcd.chunk.css.map": "/SPAProject-/static/css/4.7a0f0fcd.chunk.css.map",
     "static/css/main.6c296c77.chunk.css.map": "/SPAProject-/static/css/main.6c296c77.chunk.css.map",
-    "static/js/2.89c23cab.chunk.js.LICENSE.txt": "/SPAProject-/static/js/2.89c23cab.chunk.js.LICENSE.txt"
+    "static/js/2.ff94a8e6.chunk.js.LICENSE.txt": "/SPAProject-/static/js/2.ff94a8e6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.346a16f0.js",
-    "static/js/2.89c23cab.chunk.js",
+    "static/js/runtime-main.4fb708e2.js",
+    "static/js/2.ff94a8e6.chunk.js",
     "static/css/main.6c296c77.chunk.css",
-    "static/js/main.84f047ed.chunk.js"
+    "static/js/main.84f7f50c.chunk.js"
   ]
 }
