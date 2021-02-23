@@ -1,11 +1,15 @@
 import s from './MyPosts.module.css';
 import Post from './Posts/Post';
 import { Form, Formik, Field } from 'formik';
+import { memo } from 'react';
 
 
 
-const MyPosts = (props) => {
-	let postsElements = props.post.postsData.map(post => <Post posts={post} deletedPost={props.deletedPost} key={DataTransferItem.toString()} />);
+const MyPosts = memo(props => {
+	let postsElements = props.post.postsData.map(post =>
+		<Post key={post.id} posts={post} deletedPost={props.deletedPost} />);
+
+
 	return (
 		<div className={s.postsBlock}>
 			My post
@@ -13,6 +17,7 @@ const MyPosts = (props) => {
 				initialValues={{
 					postText: '',
 				}}
+
 				onSubmit={(value, { resetForm }) => {
 					props.addPost(value.postText);
 					resetForm({ value: '' });
@@ -25,10 +30,10 @@ const MyPosts = (props) => {
 					</Form>
 				)}
 			</Formik>
-			{postsElements}
+			{ postsElements}
 		</div >
 	);
-}
+})
 
 
 export default MyPosts;

@@ -3,12 +3,24 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-}
-.divone {
-}
-.obutton {
-}
-.thbuttons {
+  align-items: center;
+  border-style: solid;
+  background-color: hotpink;
 }
 .cbutton {
+  background-color: rgb(41, 41, 41);
+}
+.divone {
+  background-color: rgb(41, 41, 41);
+}
+.obutton {
+  background-color: rgb(41, 41, 41);
+}
+.thbutton {
+  background-color: rgb(41, 41, 41);
+}
+.xbutton {
+  background-color: rgb(41, 41, 41);
+
+  padding: 20px;
 }

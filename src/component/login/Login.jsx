@@ -12,25 +12,28 @@ const validationsSchema = yup.object().shape({
 })
 
 export const LoginForm = (props) => {
-
 	return (
 		<div className={s.container} >
 			<Formik
 				initialValues={{
 					login: '',
-					password: ''
+					password: '',
+					captcha: null,
 				}}
 				validateOnBlur
 
 				onSubmit={(values, { resetForm }) => {
-					props.onSubmit(values);
+
+					props.onSubmit(values)
 					resetForm({ values: '' });
 				}}
 
 				validationSchema={validationsSchema}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => {
+
 					return (
+
 						<Form>
 							<Field
 								placeholder={'login'}
@@ -52,6 +55,7 @@ export const LoginForm = (props) => {
 								value={values.password}
 							/>
 							{touched.password && errors.password && <p className={s.er}>{errors.password}</p>}
+							{props.captcha && <Field name={'captcha'} />}
 							<button
 								disabled={!isValid || !dirty}
 								onClick={handleSubmit}
@@ -62,6 +66,8 @@ export const LoginForm = (props) => {
 				}
 				}
 			</Formik>
+			{props.captcha && <img src={props.captcha} alt="" />}
+
 		</div >
 	)
 }
@@ -72,8 +78,7 @@ export const LoginForm = (props) => {
 class Login extends React.Component {
 
 	loginization = (data) => {
-		this.props.login(data)
-		return <Redirect to='/profile' />
+		this.props.login(data);
 	}
 
 
@@ -82,7 +87,7 @@ class Login extends React.Component {
 		return (
 			<div>
 				<h1>LOGIN</h1>
-				<LoginForm onSubmit={this.loginization} />
+				<LoginForm captcha={this.props.captcha} onSubmit={this.loginization} />
 			</div>
 		)
 	}
@@ -91,10 +96,11 @@ class Login extends React.Component {
 
 let mapStateToProps = (state) => {
 	return {
-		isAuth: state.auth.isAuth
+		isAuth: state.auth.isAuth,
+		captcha: state.auth.captcha
 	}
 }
 
 
-export default connect(mapStateToProps, { login: loginTh })(Login);
+export default connect(mapStateToProps, { login: loginTh, })(Login);
 

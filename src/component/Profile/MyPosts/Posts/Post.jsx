@@ -1,7 +1,6 @@
-
-
 import { memo } from 'react';
 import s from './Post.module.css';
+import imgFor from '../../../../img/img.webp'
 
 
 const Post = memo(props => {
@@ -13,7 +12,7 @@ const Post = memo(props => {
 
 		<div>
 			<div>{response}</div>
-			<img className={s.img} alt='' src="https://cdn4.iconfinder.com/data/icons/men-avatars-set-2-dot-version/380/13-512.png" />
+			<img className={s.img} alt='' src={imgFor} />
 			<span>{`${props.posts.name} `}</span>
 			<span>hi {ii}</span>
 			<div>

@@ -14,12 +14,11 @@ const PageGenerator = (props) => {
 					className={props.currentPage === item ? s.thisPage : null}
 				>{` ${item}`}</span>);
 			} else if (pageArray.length === item) {
-				return (<span onClick={e => { props.onChangeNumb(item) }} 
-				className={props.currentPage === item ? s.thisPage : null}>
+				return (<span onClick={e => { props.onChangeNumb(item) }}
+					className={props.currentPage === item ? s.thisPage : null}>
 					{` ...${item}`}</span>);
 			}
 		})
-
 	);
 }
 export default PageGenerator;

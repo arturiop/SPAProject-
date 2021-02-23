@@ -7,10 +7,10 @@ import { Form, Formik, Field } from 'formik';
 
 const Dialogs = (props) => {
 	let dialogElements = props.data.dialogsData
-		.map(dialog => <DialogItem dialog={dialog} />);
+		.map(dialog => <DialogItem key={dialog.id} dialog={dialog} />);
 
 	let messagesElements = props.data.messagesData
-		.map(message => <Messages message={message} />);
+		.map(message => <Messages key={message.id} message={message} />);
 
 	return (
 

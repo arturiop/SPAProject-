@@ -8,7 +8,7 @@ const Footer = () => {
 					X
 				</button>
 			</div>
-			<div>
+			<div className={s.buttoLike}> 
 				<button className={s.obutton}>
 				ggg
 				</button></div>
