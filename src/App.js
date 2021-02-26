@@ -53,7 +53,7 @@ class App extends React.Component {
 						}} />
 						<Route path='/music' render={() => <Music />} />
 						<Route path='/news' render={() => <News />} />
-						<Route path='/find/users' render={() => <UsersContainer />} />
+						<Route path='/find/users' render={() => <UsersContainer title={"UsersAcount"} />} />
 						<Route path='/settings' render={() => <Settings />} />
 						<Route path='/login' render={() => <Login />} />
 					</Switch>
