@@ -1,12 +1,9 @@
 
 import { ThunkAction } from "redux-thunk";
-import { authAPI, ResultCodeCaptchEnum, ResultCodeEnum, securityAPI } from "./api/api";
-import { ActionsTypes, AppStateType, } from "./reduxStore";
-
-const SET_LOGIN_ID_EMAIL = "SET_LOGIN_ID_EMAIL";
-const SET_CAPTCHA = "SET_CAPTCHA";
-
-
+import { ResultCodeCaptchEnum, ResultCodeEnum } from "../api/api";
+import { authAPI } from "../api/authApi";
+import { securityAPI } from "../api/securityApi";
+import { ActionsTypes, AppStateType, CommonThunkActionType, } from "./reduxStore";
 
 let initialState = {
 	userId: 1 as number | null,
@@ -20,13 +17,13 @@ export type InitialStateType = typeof initialState;
 
 const authReduser = (state = initialState, action: ActionType): InitialStateType => {
 	switch (action.type) {
-		case SET_LOGIN_ID_EMAIL: {
+		case "SET_LOGIN_ID_EMAIL": {
 			return {
 				...state,
 				...action.data, //затрет все емейл логин и айди на новые
 			}
 		}
-		case SET_CAPTCHA: {
+		case "SET_CAPTCHA": {
 			return {
 				...state,
 				captcha: action.captcha,
@@ -42,11 +39,11 @@ const authReduser = (state = initialState, action: ActionType): InitialStateType
 type ActionType = ActionsTypes<typeof action>
 const action = {
 	setUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean | null) =>
-		({ type: SET_LOGIN_ID_EMAIL, data: { userId, email, login, isAuth } }) as const,
-	setCaptcha: (captcha: string) => ({ type: SET_CAPTCHA, captcha }) as const,
+		({ type: "SET_LOGIN_ID_EMAIL", data: { userId, email, login, isAuth } } as const),
+	setCaptcha: (captcha: string) => ({ type: "SET_CAPTCHA", captcha } as const),
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>
+type ThunkType = CommonThunkActionType<ActionType>
 
 export const loginTh = (data: any): ThunkType => async (dispatch) => {
 
@@ -54,7 +51,7 @@ export const loginTh = (data: any): ThunkType => async (dispatch) => {
 	if (response.resultCode === ResultCodeEnum.Succses) {
 		dispatch(autoraithTh())
 	} else {
-		if (response.resultCode == ResultCodeCaptchEnum.Captcha) {
+		if (response.resultCode === ResultCodeCaptchEnum.Captcha) {
 			dispatch(getCaptchaURL())
 		}
 	}
@@ -77,8 +74,8 @@ export const singOutTh = (): ThunkType => async (dispatch) => {
 }
 
 export const getCaptchaURL = (): ThunkType => async (dispatch) => {
-	let response = await securityAPI.getCaptcha()
-	dispatch(action.setCaptcha(response.data.url));
+	let data = await securityAPI.getCaptcha()
+	dispatch(action.setCaptcha(data.url));
 }
 
 

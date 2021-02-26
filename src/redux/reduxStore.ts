@@ -1,14 +1,16 @@
-import { applyMiddleware, combineReducers, createStore, compose } from "redux";
+import { applyMiddleware, combineReducers, createStore, compose, Action } from "redux";
 import profileReducer from "./profilePageReduser";
 import dialogsReducer from "./dialogdsPageReduser";
 import friendsReducer from "./friendsPageReduser";
 import userReducer from "./usersPageReducer";
 import authReduser from "./authReduser";
-import thunk from 'redux-thunk';
+import thunk, { ThunkAction } from 'redux-thunk';
 import appReduser from "./appReduser";
 
-type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
-export type ActionsTypes<T extends { [key: string]: (...args: any) => any }> = ReturnType<PropertiesType<T>>
+export type ActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
+// export type ActionsTypes<T extends { [key: string]: (...args: any) => any }> = ReturnType<PropertiesType<T>>
+
+export type CommonThunkActionType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 let rootReducers = combineReducers({
 	profilePage: profileReducer,

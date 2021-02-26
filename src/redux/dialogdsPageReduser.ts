@@ -27,8 +27,8 @@ let initialState = {
 
 };
 
-
 export type InitialStateTypeDialog = typeof initialState;
+
 type ActionType = AddCreactorMessageType
 const dialogReduser = (state = initialState, action: ActionType): InitialStateTypeDialog => {
 

@@ -3,17 +3,11 @@ import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
 import { PhotosType, PostDataType, ProfileType } from "../commonType/commonType";
 import { InitialVFormik } from "../component/Profile/ProfileInfo/ContactProfileFrorm";
-import { profileAPI, ResultCodeEnum } from "./api/api";
-import { AppStateType } from "./reduxStore";
+import { ResultCodeEnum } from "../api/api";
+import { ActionsTypes, AppStateType, CommonThunkActionType } from "./reduxStore";
+import { profileAPI } from "../api/profileApi";
 
-const ADD_POST = 'ADD_POST';
-const ADD_T = 'ADD_T';
-const SET_PROFILE = 'SET_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const DELETED_POST = 'DELETED_POST';
-const PHOTO = 'PHOTO';
 // const CHANGE_PROFILE = 'CHANGE_PROFILE';
-
 
 let initialState = {
 	postsData: [
@@ -26,37 +20,39 @@ let initialState = {
 	status: '',
 };
 export type InitializStateType = typeof initialState;
+type ActionType = ActionsTypes<typeof action>
+
 const profileReduser = (state = initialState, action: ActionType): InitializStateType => {
 	switch (action.type) {
-		case ADD_POST: {
+		case 'ADD_POST': {
 			let newP = { id: state.postsData.length + 1, count: '0', name: 'artur', value: action.newPostTt };
 			return {
 				...state,
 				postsData: [...state.postsData, newP],
 			};
 		}
-		case SET_PROFILE: {
+		case 'SET_PROFILE': {
 			return {
 				...state, profile: action.profile
 			}
 		}
 
-		case SET_STATUS: {
+		case 'SET_STATUS': {
 			return {
 				...state, status: action.status
 			}
 		}
-		case DELETED_POST: {
+		case 'DELETED_POST': {
 			return {
 				...state, postsData: state.postsData.filter(item => item.id !== action.id)
 			}
 		}
-		case ADD_T: {
+		case 'ADD_T': {
 			return {
 				...state, post: action.newPostTt
 			}
 		}
-		case PHOTO: {
+		case 'PHOTO': {
 			return {
 				...state, profile: { ...state.profile, photos: action.photos } as ProfileType
 			}
@@ -77,54 +73,42 @@ const profileReduser = (state = initialState, action: ActionType): InitializStat
 			return state;
 	}
 }
-type ActionType = ChangePhotoType | AddTType | AddCreactorPostType | SetProfileType |
-	SetStatusType | DeletedPostType
 
-type ChangePhotoType = { type: typeof PHOTO, photos: PhotosType }
-export const changePhoto = (photos: PhotosType): ChangePhotoType => ({ type: PHOTO, photos })
-
-
-
-type AddTType = { type: typeof ADD_T, newPostTt: string }
-export const addT = (newPostTt: string): AddTType => ({ type: ADD_T, newPostTt }); //for test
-
-
+export const action = {
+	changePhoto: (photos: PhotosType) => ({ type: 'PHOTO', photos } as const),
+	addT: (newPostTt: string) => ({ type: 'ADD_T', newPostTt } as const),
+	addCreactorPost: (newPostTt: string) => ({ type: 'ADD_POST', newPostTt } as const), //for test
+	setProfile: (profile: ProfileType) => ({ type: 'SET_PROFILE', profile } as const),
+	setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
+	deletedPost: (id: number) => ({ type: 'DELETED_POST', id } as const), //for test
+	// export const changeProfile = (objProperti) => ({ type: CHANGE_PROFILE, objProperti }); // if want use so!
+}
 
 
-
-type AddCreactorPostType = { type: typeof ADD_POST, newPostTt: string }
-export const addCreactorPost = (newPostTt: string): AddCreactorPostType => ({ type: ADD_POST, newPostTt });
-type SetProfileType = { type: typeof SET_PROFILE, profile: ProfileType }
-export const setProfile = (profile: ProfileType): SetProfileType => ({ type: SET_PROFILE, profile });
-type SetStatusType = { type: typeof SET_STATUS, status: string }
-export const setStatus = (status: string): SetStatusType => ({ type: SET_STATUS, status });
-type DeletedPostType = { type: typeof DELETED_POST, id: number }
-export const deletedPost = (id: number): DeletedPostType => ({ type: DELETED_POST, id }); //for test
-// export const changeProfile = (objProperti) => ({ type: CHANGE_PROFILE, objProperti }); // if want use so!
 
 type DispatchType = Dispatch<ActionType>
 type StateType = () => AppStateType
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>
+type ThunkType = CommonThunkActionType<ActionType>
 
 export const getProfileTh = (userId: number | null) => async (dispatch: DispatchType) => {
 	let data = await profileAPI.getProfile(userId)
-	dispatch(setProfile(data));
+	dispatch(action.setProfile(data));
 }
 export const getStatusTh = (userId: number) => async (dispatch: DispatchType) => {    //для кого полуить стату
 	let response = await profileAPI.getStatus(userId)
-	dispatch(setStatus(response.data)); //для сетСтатус
+	dispatch(action.setStatus(response.data)); //для сетСтатус
 }
 export const updateStatusTh = (status: string) => async (dispatch: DispatchType) => {
 	let response = await profileAPI.updateStatus(status)
 	if (response.resultCode === ResultCodeEnum.Succses) {
-		dispatch(setStatus(status));
+		dispatch(action.setStatus(status));
 	}
 }
 
-export const sendPhoto = (photo: any): ThunkType => async (dispatch) => {
-	let response = await profileAPI.sendPhoto(photo)
-	if (response.resultCode === ResultCodeEnum.Succses) {
-		dispatch(changePhoto(response.data.photos));
+export const sendPhoto = (photo: File): ThunkType => async (dispatch) => {
+	let data = await profileAPI.sendPhoto(photo)
+	if (data.resultCode === ResultCodeEnum.Succses) {
+		dispatch(action.changePhoto(data.data.photos));
 	}
 }
 
@@ -132,7 +116,13 @@ export const editProfile = (objProperti: InitialVFormik): ThunkType => async (di
 	let userId = getState().auth.userId;
 	let response = await profileAPI.editProfile(objProperti)
 	if (response.resultCode === ResultCodeEnum.Succses) {
-		dispatch(getProfileTh(userId))
+		if (userId !== null) {
+			dispatch(getProfileTh(userId))
+		}
+		else {
+			throw new Error("User id can`t be null")
+		}
+
 		// dispatch(changeProfile(objProperti));
 	}
 }

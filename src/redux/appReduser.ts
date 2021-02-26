@@ -1,21 +1,20 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
 import { autoraithTh } from "./authReduser";
-import { AppStateType } from "./reduxStore";
+import { ActionsTypes, AppStateType, CommonThunkActionType } from "./reduxStore";
 
 const INITIALIZED = "INITIALIZED";
 
-type InitializStateType = {
-	initialized: boolean
-}
+type InitializStateType = typeof initializState
 
-let initializState: InitializStateType = {
+let initializState = {
 	initialized: false
 };
-type ActionType = SetInitializedType
+type ActionType = ActionsTypes<typeof action>
+
 const appReduser = (state = initializState, action: ActionType): InitializStateType => {
 	switch (action.type) {
-		case INITIALIZED: {
+		case "INITIALIZED": {
 			return {
 				...state,
 				initialized: true
@@ -26,17 +25,16 @@ const appReduser = (state = initializState, action: ActionType): InitializStateT
 	}
 }
 
-type SetInitializedType = {
-	type: typeof INITIALIZED
+const action = {
+	setInitialized: () => ({ type: "INITIALIZED" } as const)
 }
 
-export const setInitialized = (): SetInitializedType => ({ type: INITIALIZED });
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>
-export const initializeApp = () => (dispatch: any) => {
+type ThunkType = CommonThunkActionType<ActionType, void>
+export const initializeApp = (): ThunkType => (dispatch) => {
 	let promise = dispatch(autoraithTh());
 	Promise.all([promise]).then(() => {
-		dispatch(setInitialized());
+		dispatch(action.setInitialized());
 	})
 };
 
