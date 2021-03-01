@@ -17,23 +17,23 @@ type PropsType = {
 	editProfile: (objProperti: InitialVFormik) => void
 
 }
-const ProfileInfo: React.FC<PropsType> = (props) => {
+const ProfileInfo: React.FC<PropsType> = ({ profile, sendPhoto, isOwner, status, updateStatusTh, editProfile }) => {
 
 	let [editMode, setEditMode] = useState(false);
 
 
-	let pf = props.profile;
+	let pf = profile;
 	if (!pf) {
 		return <Preloader />
 	}
 	const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files) {
-			props.sendPhoto(e.target.files[0])
+		if (e.target.files?.length) {
+			sendPhoto(e.target.files[0])
 		}
 	}
 
 	const editProfileData = (obj: InitialVFormik) => {
-		props.editProfile(obj);
+		editProfile(obj);
 		setEditMode(false);
 	}
 
@@ -49,13 +49,13 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
 					<img alt='' src={pf.photos.small || iconUser} className={s.userIcon} />
 				</div>
 
-				{props.isOwner && <input type={'file'} onChange={selectFile} />}
+				{isOwner && <input type={'file'} onChange={selectFile} />}
 			</div>
 
 			{editMode ? <ContactProfileFrorm pf={pf} editProfileData={editProfileData} />
-				: <ContactProfile pf={pf} activeEditMode={activeEditMode} isOwner={props.isOwner} />}
+				: <ContactProfile pf={pf} activeEditMode={activeEditMode} isOwner={isOwner} />}
 
-			<ProfileStatusWithHook status={props.status} updateStatusTh={props.updateStatusTh} />
+			<ProfileStatusWithHook status={status} updateStatusTh={updateStatusTh} />
 		</div >
 	);
 }

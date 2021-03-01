@@ -13,10 +13,8 @@ let mapStateToPropsForRedirect = (state: AppStateType): MapStatePropsType => {
 	}
 };
 
-type PropsType = MapStatePropsType;
-
-export const withAuthRedirect = (Component: any) => {
-	class RedirectComponent extends React.Component<PropsType> {
+export const withAuthRedirect = (Component: React.ComponentType) => {
+	class RedirectComponent extends React.Component<MapStatePropsType> {
 		render() {
 			if (!this.props.isAuth) return <Redirect to='/login' />
 
@@ -24,7 +22,7 @@ export const withAuthRedirect = (Component: any) => {
 		}
 	}
 
-	let ConnectRedirectCommponent = connect(mapStateToPropsForRedirect)(RedirectComponent);
+	let ConnectRedirectCommponent = connect<MapStatePropsType, {}, {}, AppStateType>(mapStateToPropsForRedirect)(RedirectComponent);
 
 	return ConnectRedirectCommponent;
 }

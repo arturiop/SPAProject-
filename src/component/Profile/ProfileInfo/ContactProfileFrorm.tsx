@@ -41,7 +41,7 @@ const ContactProfileFrorm: React.FC<PropsType> = ({ pf, editProfileData }) => {
 
 
 						<div className={s.contacts}>
-							<div><b>Contacts</b>: {Object.keys(pf.contacts).map((key: any) => {
+							<div><b>Contacts</b>: {Object.keys(pf.contacts).map((key: string) => {
 								return <div key={key}>
 									<b>{key}</b>: <input name={'contacts.' + key} onChange={props.handleChange} />
 								</div>

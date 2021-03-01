@@ -1,40 +1,33 @@
 import s from './Users.module.css';
-import PageGenerator from '../../common/PageGenerator/PageGenerator';
 import User from './User/User';
-import { UserDataType } from '../../../commonType/commonType';
+import { useDispatch, useSelector } from 'react-redux';
+import { getToggleFetching, getUser } from '../../../redux/userSelect';
+import { followTh, unFollowTh } from '../../../redux/usersPageReducer';
 
-type PropsType = {
-	uses: Array<UserDataType>
-	pageTotal: number
-	pageCount: number
-	currentPage: number
-	toggleFetching: Array<number>
-	followTh: (id: number) => void
-	unFollowTh: (id: number) => void
-	onChangeNumb: (numb: number) => void
-}
+type PropsType = {}
+export const Users: React.FC<PropsType> = (props) => {
 
-const Users: React.FC<PropsType> = ({ uses,
-	toggleFetching,
-	followTh,
-	unFollowTh,
-	pageTotal,
-	pageCount,
-	currentPage,
-	onChangeNumb }) => {
+	const toggleFetching = useSelector(getToggleFetching)
+	const uses = useSelector(getUser)
+	const dispatch = useDispatch()
+
+	const followThy = (userid: number) => {
+		dispatch(followTh(userid))
+	}
+	const unFollowThy = (userid: number) => {
+		dispatch(unFollowTh(userid))
+	}
 
 	let userAccount = uses.map(item =>
 		<User key={item.id} item={item} toggleFetching={toggleFetching}
-			unFollowTh={unFollowTh} followTh={followTh} />)
+			unFollowTh={unFollowThy} followTh={followThy} />)
 
 	return (
 		< div className={s.user} >
-			<PageGenerator pageTotal={pageTotal} pageCount={pageCount}
-				currentPage={currentPage} onChangeNumb={onChangeNumb} />
 			{userAccount}
 			< button className={s.button} > Show more</ button>
 		</div >
 	)
 }
 
-export default Users;
+

@@ -18,6 +18,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 	}
 }
 
-export default compose(withAuthRedirect,
+export default compose<React.ComponentType>(withAuthRedirect,
 	connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps,
 		{ newMessagess: addCreactorMessage }))(Dialogs);

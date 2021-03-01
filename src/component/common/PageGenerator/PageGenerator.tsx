@@ -1,13 +1,13 @@
 import s from './PageGenerator.module.css';
 
 
-type Props = {
+type PropsType = {
 	pageTotal: number
 	pageCount: number
 	currentPage: number
 	onChangeNumb: (item: number) => void
 }
-const PageGenerator: React.FC<Props> = ({ pageTotal, pageCount, currentPage, onChangeNumb }): any => {
+const PageGenerator: React.FC<PropsType> = ({ pageTotal, pageCount, currentPage, onChangeNumb }): any => {
 
 
 
@@ -19,10 +19,12 @@ const PageGenerator: React.FC<Props> = ({ pageTotal, pageCount, currentPage, onC
 	return (
 		pageArray.map(item => {
 			if ((item >= (currentPage - 2)) && (item <= (currentPage + 2))) {
-				return (<span key={item} onClick={e => { onChangeNumb(item) }} className={currentPage === item ? s.thisPage : ""}>
+				return (<span key={item} onClick={e => { onChangeNumb(item) }}
+					className={currentPage === item ? s.thisPage : ""}>
 					{` ${item}`}</span>);
 			} else if (pageArray.length === item) {
-				return (<span key={item} onClick={e => { onChangeNumb(item) }} className={currentPage === item ? s.thisPage : ""}>
+				return (<span key={item} onClick={e => { onChangeNumb(item) }}
+					className={currentPage === item ? s.thisPage : ""}>
 					{` ...${item}`}</span>);
 			}
 		})

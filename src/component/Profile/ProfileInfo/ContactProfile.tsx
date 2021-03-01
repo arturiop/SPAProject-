@@ -1,9 +1,20 @@
-import { ProfileType } from '../../../commonType/commonType';
+import { ContactsType, ProfileType } from '../../../commonType/commonType';
 import s from './ProfileInfo.module.css';
 type PropsType = {
 	pf: ProfileType
 	isOwner: boolean
 	activeEditMode: () => void
+}
+type pe = {
+	github: string
+	vk: string
+	facebook: string
+	instagram: string
+	twitter: string
+	website: string
+	youtube: string
+	mainLink: string
+	index: number
 }
 const ContactProfile: React.FC<PropsType> = ({ pf, isOwner, activeEditMode }) => {
 	return (
@@ -14,19 +25,28 @@ const ContactProfile: React.FC<PropsType> = ({ pf, isOwner, activeEditMode }) =>
 				<div><b>About me: </b>{pf.aboutMe}</div>
 			</div>
 			<div className={s.contacts}>
-				<div><b>Contacts</b>: {Object.keys(pf.contacts).map((key: any) => {
-					return <div key={key} ><b>{key}</b>:{pf.contacts[key] || ' empty'} </div>
+				<div><b>Contacts</b>: {
+					Object
+						.keys(pf.contacts)
+						.map(key => {
+							return <div key={key} >
+								<b>{key}</b>:{pf.contacts[key as any]}
+							</div>
 
-				})}
+						})}
 				</div>
 			</div>
-			{isOwner && <button type={'submit'} onClick={activeEditMode} >Click me!</button>}
-		</div>
+			{ isOwner && <button type={'submit'} onClick={activeEditMode} >Click me!</button>}
+		</div >
 
 
 	)
 }
-
-
+type p = {
+	pf: any
+}
+const Contact: React.FC<p> = () => {
+	return <div></div>
+}
 
 export default ContactProfile;

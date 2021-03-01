@@ -1,7 +1,9 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
+import { APIResponseType } from "../api/api";
 import { usersAPI } from "../api/usersApi";
 import { UserDataType } from "../commonType/commonType";
+import { FilterType } from "../component/Users/UsersPage";
 import { ActionsTypes, AppStateType, CommonThunkActionType } from "./reduxStore";
 
 
@@ -15,6 +17,10 @@ let initializState = {
 	currentPage: 1,
 	isFetching: false,
 	toggleFetching: [] as Array<number>,
+	filter: {
+		term: '',
+		friend: null as null | boolean
+	} as FilterType
 };
 
 const userReducer = (state = initializState, action: ActionType): InitializStateType => {
@@ -61,13 +67,27 @@ const userReducer = (state = initializState, action: ActionType): InitializState
 					? [...state.toggleFetching, action.userId]
 					: state.toggleFetching.filter(id => id !== action.userId)
 			}
+		case 'SEARCH_USERS': {
+			return {
+				...state, userData: [...action.arrivedUsers]
+			}
+		}
+		case 'GET_USERS_FRIENDS': {
+			return {
+				...state, userData: [...action.users]
+			}
+		}
+		case 'SET_FILTER_TERM': {
+			return { ...state, filter: action.payload }
+		}
 
 		default:
 			return state;
 	}
 }
 
-const action = {
+export const action = {
+	searchUsers: (arrivedUsers: Array<UserDataType>) => ({ type: 'SEARCH_USERS', arrivedUsers } as const),
 	follow: (userId: number) => ({ type: 'FOLLOW', userId } as const),
 	unFollow: (userId: number) => ({ type: 'UNFOLLOW', userId } as const),
 	setUsers: (users: Array<UserDataType>) => ({ type: 'SET_USERS', users } as const),
@@ -75,26 +95,29 @@ const action = {
 	setTotalUsers: (count: number) => ({ type: 'TOTAL_COUNT', count } as const),
 	switchFetch: (fetching: boolean) => ({ type: 'SWITCH_FETCH', fetching } as const),
 	toggleFetchingInProgres: (fetching: boolean, userId: number) => ({ type: 'TOGGLE_FETCHING', fetching, userId } as const),
+	getUserFriends: (users: Array<UserDataType>) => ({ type: 'GET_USERS_FRIENDS', users } as const),
+	setFilterTerm: (filter: FilterType) => ({ type: 'SET_FILTER_TERM', payload: filter } as const)
 }
 
 type DispatchType = Dispatch<ActionType> // use in dispatch
 type StateType = () => AppStateType // use in props for state
 type ThunkType = CommonThunkActionType<ActionType> // use after props thunk
 
-export const getUsers = (currentPage: number, pageCount: number): ThunkType =>
+export const getUsers = (currentPage: number, pageCount: number, filter: FilterType): ThunkType =>
 	async (dispatch) => {
 		dispatch(action.switchFetch(true));
-		let data = await usersAPI.getUsers(currentPage, pageCount)
+		dispatch(action.setFilterTerm(filter))
+		let data = await usersAPI.getUsers(currentPage, pageCount, filter.term, filter.friend)
 		dispatch(action.switchFetch(false));
 		dispatch(action.setUsers(data.items));
 		dispatch(action.setTotalUsers(data.totalCount));
 	}
 //  getState: () => AppStateType
-export const changePage = (numb: number, pageCount: number): ThunkType =>
+export const changePage = (numb: number, pageCount: number, term: string): ThunkType =>
 	async (dispatch) => {
 		dispatch(action.setCurrent(numb));
 		dispatch(action.switchFetch(true));
-		let data = await usersAPI.getUsers(numb, pageCount)
+		let data = await usersAPI.getUsers(numb, pageCount, term)
 		dispatch(action.switchFetch(false));
 		dispatch(action.setUsers(data.items));
 	}
@@ -102,15 +125,24 @@ export const changePage = (numb: number, pageCount: number): ThunkType =>
 export const unFollowTh = (userId: number) => async (dispatch: DispatchType) => {
 	dispatch(action.toggleFetchingInProgres(true, userId));
 	let data = await usersAPI.unfollow(userId)
-	if (data.resultCode === 0) dispatch(action.unFollow(userId));
+	if (data.resultCode == 0) dispatch(action.unFollow(userId));
 	dispatch(action.toggleFetchingInProgres(false, userId));
 }
 
-export const followTh = (userId: number) => async (dispatch: DispatchType) => {
+export const followTh = (userId: number): ThunkType => async (dispatch) => {
 	dispatch(action.toggleFetchingInProgres(true, userId));
 	let data = await usersAPI.follow(userId)
 	if (data.resultCode === 0) dispatch(action.follow(userId));
 	dispatch(action.toggleFetchingInProgres(false, userId));
 }
+export const searchUsersTh = (nameUsers: string): ThunkType =>
+	async (dispatch) => {
+		let data = await usersAPI.searchUsersByName(nameUsers)
+		dispatch(action.searchUsers(data.items))
+	}
 
+export const getUserFriends = (): ThunkType => async (dispatch) => {
+	let data = await usersAPI.getUsersFriends()
+	dispatch(action.getUserFriends(data.items))
+}
 export default userReducer;

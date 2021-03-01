@@ -38,4 +38,5 @@ export type ContactsType = {
 	website: string
 	youtube: string
 	mainLink: string
+	index: number
 }

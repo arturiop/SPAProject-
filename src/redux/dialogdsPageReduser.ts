@@ -48,7 +48,8 @@ const dialogReduser = (state = initialState, action: ActionType): InitialStateTy
 }
 
 type AddCreactorMessageType = { type: typeof ADD_MESSAGE, newT: string }
-export const addCreactorMessage = (newT: string): AddCreactorMessageType => ({ type: ADD_MESSAGE, newT });
+export const addCreactorMessage = (newT: string): AddCreactorMessageType => (
+	{ type: ADD_MESSAGE, newT });
 
 
 export default dialogReduser;

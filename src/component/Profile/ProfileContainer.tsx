@@ -3,7 +3,7 @@ import s from './Profile.module.css';
 
 import { connect } from 'react-redux';
 import { getProfileTh, getStatusTh, updateStatusTh, sendPhoto, editProfile } from '../../redux/profilePageReduser';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAurhRedirect';
 import { compose } from 'redux';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
@@ -16,7 +16,6 @@ type MapStatePropsType = {
 	profile: ProfileType | null
 	status: string
 	id: number | null
-	match?: any
 }
 type OwnPropsType = {
 	own?: string
@@ -28,17 +27,24 @@ type MapDispatchProps = {
 	sendPhoto: (photos: any) => void
 	editProfile: (objProperti: InitialVFormik) => void
 }
-type PropsType = MapDispatchProps & OwnPropsType & MapStatePropsType;
+type PropsType = MapDispatchProps & OwnPropsType & MapStatePropsType & RouteComponentProps<RoutePropsType>
+type RoutePropsType = {
+	userId: string
+}
 
 class ProfileContainer extends React.Component<PropsType> {
 
 	refreshProfile() {
-		let userId = this.props.match.params.userId;
+		let userId: number | null = +this.props.match.params.userId;
 		if (!userId) {
 			userId = this.props.id
+			if (!userId) {
+
+				this.props.history.push('/login')
+			}
 		}
-		this.props.getProfileTh(userId);
-		this.props.getStatusTh(userId);
+		this.props.getProfileTh(userId as number);
+		this.props.getStatusTh(userId as number);
 	}
 
 	componentDidMount() {
@@ -73,7 +79,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 };
 
 
-export default compose(
+export default compose<React.ComponentType>(
 	withRouter,
 	withAuthRedirect,
 	connect<MapStatePropsType, MapDispatchProps, OwnPropsType, AppStateType>(mapStateToProps,

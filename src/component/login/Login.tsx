@@ -1,11 +1,11 @@
 import s from './Login.module.css';
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { loginTh } from '../../redux/authReduser';
-import { Redirect } from 'react-router-dom';
 import { AppStateType } from '../../redux/reduxStore';
+import { Redirect } from 'react-router-dom';
 
 const validationsSchema = yup.object().shape({
 	login: yup.string().email('write correct email').typeError('shouдd be string').required('Обязательно'),
@@ -83,40 +83,24 @@ export type LogeinType = {
 	password: string
 }
 
-type MapStatePropsType = {
-	isAuth: boolean | null
-	captcha: string | null
-}
-type MapDispatchPropsType = {
-	login: (data: LogeinType) => void
-}
-type PropsTypeCC = MapStatePropsType & MapDispatchPropsType;
-
-
-class Login extends React.Component<PropsTypeCC> {
-
-	loginization = (data: LogeinType) => {
-		this.props.login(data);
+export const LoginPage: React.FC = (props) => {
+	const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
+	const captcha = useSelector((state: AppStateType) => state.auth.captcha)
+	const dispatch = useDispatch()
+	const login = ((data: LogeinType) => {
+		dispatch(loginTh(data))
+	})
+	const loginization = (data: LogeinType) => {
+		login(data);
+	}
+	if (isAuth) {
+		return <Redirect to={'/profile'} />
 	}
 
-	render() {
-		return (
-			<div>
-				<h1>LOGIN</h1>
-				<LoginForm captcha={this.props.captcha} onSubmit={this.loginization} />
-			</div>
-		)
-	}
-
+	return (
+		<div>
+			<h1>LOGIN</h1>
+			<LoginForm captcha={captcha} onSubmit={loginization} />
+		</div>
+	)
 }
-
-let mapStateToProps = (state: AppStateType): MapStatePropsType => {
-	return {
-		isAuth: state.auth.isAuth,
-		captcha: state.auth.captcha
-	}
-}
-
-
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, { login: loginTh, })(Login);
-

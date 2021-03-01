@@ -18,5 +18,8 @@ export const getIsFetching = (state: AppStateType) => {
 export const getToggleFetching = (state: AppStateType) => {
 	return state.users.toggleFetching;
 }
+export const getFilter = (state: AppStateType) => {
+	return state.users.filter
+}
 
 

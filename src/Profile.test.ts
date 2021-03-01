@@ -1,17 +1,21 @@
-import profileReduser, { addCreactorPost, addT, deletetPost } from "./redux/profilePageReduser";
+import { ProfileType } from "./commonType/commonType";
+import profileReduser, { action } from "./redux/profilePageReduser";
+import { AppStateType } from "./redux/reduxStore";
 
 let state = {
 	postsData: [
-		{ id: '1', count: '5', name: 'Artur', value: 'hi' },
-		{ id: '2', count: '1', name: 'Mukolai', value: 'hi' },
-		{ id: '3', count: '2', name: 'Sanya', value: 'hi' }
+		{ id: 1, count: '5', name: 'Artur', value: 'hi' },
+		{ id: 2, count: '1', name: 'Mukolai', value: 'hi' },
+		{ id: 3, count: '2', name: 'Sanya', value: 'hi' }
 	],
 	post: '',
+	profile: null as ProfileType | null,
+	status: '',
 };
-
+type Ap = AppStateType
 test('check creator', () => {
-	const action = addCreactorPost('trump');
-	let newState = profileReduser(state, action)
+	let actionsss = action.addCreactorPost('trump');
+	let newState = profileReduser(state, actionsss)
 	expect(newState.postsData.length).toBe(4);
 });
 

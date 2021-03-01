@@ -21,7 +21,7 @@ export type APIResponseType<D = {}, RC = ResultCodeEnum> = {
 	data: D
 	fieldsErrors: Array<string>
 	messages: Array<string>
-	resultCode: RC
+	resultCode: 0
 }
 
 
