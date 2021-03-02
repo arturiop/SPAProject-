@@ -111,6 +111,7 @@ export const getUsers = (currentPage: number, pageCount: number, filter: FilterT
 		dispatch(action.switchFetch(false));
 		dispatch(action.setUsers(data.items));
 		dispatch(action.setTotalUsers(data.totalCount));
+		dispatch(action.setCurrent(currentPage));
 	}
 //  getState: () => AppStateType
 export const changePage = (numb: number, pageCount: number, term: string): ThunkType =>

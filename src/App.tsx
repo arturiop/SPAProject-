@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './component/Navbar/Navbar';
-import { HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
 import News from './component/News/News';
@@ -76,11 +76,11 @@ let AppContainer = compose<React.ComponentType>(withRouter, connect(mapStateToPr
 
 const MainApp: React.FC = () => {
 	return (
-		<HashRouter>
+		<BrowserRouter>
 			<Provider store={store} >
 				<AppContainer />
 			</Provider>
-		</HashRouter>
+		</BrowserRouter>
 	)
 }
 export default MainApp;

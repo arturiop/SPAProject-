@@ -2,21 +2,24 @@ import s from './MyPosts.module.css';
 import Post from './Posts/Post';
 import { Form, Formik, Field } from 'formik';
 import { memo } from 'react';
-import { PostDataType } from '../../../commonType/commonType';
+import { useDispatch, useSelector } from 'react-redux';
+import { action } from '../../../redux/profilePageReduser';
+import { AppStateType } from '../../../redux/reduxStore';
 
 
-type PropsType = {
-	postsData: Array<PostDataType>
-	deletedPost: (id: number) => void
-	addPost: (str: string) => void
-}
+type PropsType = {}
 type FormType = {
 	postText: string
 }
-const MyPosts: React.FC<PropsType> = memo(props => {
-	let postsElements = props.postsData.map(item =>
-		<Post key={item.id} post={item} deletedPost={props.deletedPost} />);
+export const MyPosts: React.FC<PropsType> = memo(props => {
 
+	const dispatch = useDispatch()
+	const addPost = (str: string) => dispatch(action.addCreactorPost(str))
+	const postsData = useSelector((state: AppStateType) => state.profilePage.postsData)
+	const deletedPost = (id: number) => dispatch(action.deletedPost(id))
+
+	let postsElements = postsData.map(item =>
+		<Post key={item.id} post={item} deletedPost={deletedPost} />);
 	const initialValues: FormType = {
 		postText: '',
 	}
@@ -29,7 +32,7 @@ const MyPosts: React.FC<PropsType> = memo(props => {
 				initialValues={initialValues}
 
 				onSubmit={(value, { resetForm }) => {
-					props.addPost(value.postText);
+					addPost(value.postText);
 					resetForm();
 				}}
 			>
@@ -46,5 +49,3 @@ const MyPosts: React.FC<PropsType> = memo(props => {
 	);
 })
 
-
-export default MyPosts;

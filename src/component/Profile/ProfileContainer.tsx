@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './Profile.module.css';
-
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getProfileTh, getStatusTh, updateStatusTh, sendPhoto, editProfile } from '../../redux/profilePageReduser';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAurhRedirect';
 import { compose } from 'redux';
-import MyPostsContainer from './MyPosts/MyPostsContainer';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
 import { AppStateType } from '../../redux/reduxStore';
 import { ProfileType } from '../../commonType/commonType';
 import { InitialVFormik } from './ProfileInfo/ContactProfileFrorm';
+import { MyPosts } from './MyPosts/MyPosts';
+import { ProfileInfo } from './ProfileInfo/ProfileInfo';
+
 
 type MapStatePropsType = {
 	profile: ProfileType | null
@@ -31,7 +31,36 @@ type PropsType = MapDispatchProps & OwnPropsType & MapStatePropsType & RouteComp
 type RoutePropsType = {
 	userId: string
 }
+export const ProfContainer: React.FC = (props) => {
+	const idUser = useSelector((state: AppStateType) => state.auth.userId)
 
+	const dispatch = useDispatch()
+	const getProfile = (userId: number) => { dispatch(getProfileTh(userId)) }
+	const getStatus = (userId: number) => { dispatch(getStatusTh(userId)) }
+	const history = useHistory()
+	const refreshProfile = () => {
+		//@ts-ignore
+		let userId: number | null = +props.match.params.userId;
+		if (!userId) {
+			userId = idUser
+			if (!idUser) {
+				history.push('/login')
+			}
+		}
+		getProfile(userId as number);
+		getStatus(userId as number);
+	}
+	useEffect(() => { //ВОСПРИНИМАТЬ КАК СИНХРОНИЗАЦИЮ
+		refreshProfile()
+	}, [])
+
+	return (
+		<div className={s.content} >
+			<ProfileInfo />
+			<MyPosts />
+		</div >
+	)
+}
 class ProfileContainer extends React.Component<PropsType> {
 
 	refreshProfile() {
@@ -61,9 +90,8 @@ class ProfileContainer extends React.Component<PropsType> {
 		let p = this.props;
 		return (
 			<div className={s.content} >
-				<ProfileInfo editProfile={p.editProfile} sendPhoto={p.sendPhoto} isOwner={!this.props.match.params.userId}
-					profile={p.profile} status={p.status} updateStatusTh={p.updateStatusTh} />
-				<MyPostsContainer />
+				<ProfileInfo />
+				<MyPosts />
 			</div >
 		)
 	}

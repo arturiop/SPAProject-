@@ -5,17 +5,6 @@ type PropsType = {
 	isOwner: boolean
 	activeEditMode: () => void
 }
-type pe = {
-	github: string
-	vk: string
-	facebook: string
-	instagram: string
-	twitter: string
-	website: string
-	youtube: string
-	mainLink: string
-	index: number
-}
 const ContactProfile: React.FC<PropsType> = ({ pf, isOwner, activeEditMode }) => {
 	return (
 		<div className={s.containerContacts}>
@@ -32,7 +21,6 @@ const ContactProfile: React.FC<PropsType> = ({ pf, isOwner, activeEditMode }) =>
 							return <div key={key} >
 								<b>{key}</b>:{pf.contacts[key as any]}
 							</div>
-
 						})}
 				</div>
 			</div>
@@ -41,12 +29,6 @@ const ContactProfile: React.FC<PropsType> = ({ pf, isOwner, activeEditMode }) =>
 
 
 	)
-}
-type p = {
-	pf: any
-}
-const Contact: React.FC<p> = () => {
-	return <div></div>
 }
 
 export default ContactProfile;

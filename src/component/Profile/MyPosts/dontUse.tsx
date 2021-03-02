@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { PostDataType } from '../../../commonType/commonType';
 import { action } from '../../../redux/profilePageReduser';
 import { AppStateType } from '../../../redux/reduxStore';
-import MyPosts from './MyPosts';
+import { MyPosts } from './MyPosts';
+
 
 type MapDispatchPropsType = {
 	addPost: (str: string) => void
@@ -22,7 +23,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 const MyPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
 	mapStateToProps, {
-		addPost: action.addCreactorPost, deletedPost: action.deletedPost
+	addPost: action.addCreactorPost, deletedPost: action.deletedPost
 })(MyPosts);
 
 export default MyPostsContainer;

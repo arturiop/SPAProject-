@@ -6,34 +6,34 @@ import ContactProfile from './ContactProfile';
 import React, { ChangeEvent, useState } from 'react';
 import ContactProfileFrorm, { InitialVFormik } from "./ContactProfileFrorm";
 import { ProfileType } from '../../../commonType/commonType';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../../redux/reduxStore';
+import { editProfile, sendPhoto, updateStatusTh } from '../../../redux/profilePageReduser';
 
 
-type PropsType = {
-	profile: ProfileType | null
-	sendPhoto: any
-	isOwner: boolean
-	status: string
-	updateStatusTh: (status: string) => void
-	editProfile: (objProperti: InitialVFormik) => void
+type PropsType = {}
+export const ProfileInfo: React.FC<PropsType> = (props) => {
+	const profile = useSelector((state: AppStateType) => state.profilePage.profile)
+	const status = useSelector((state: AppStateType) => state.profilePage.status)
 
-}
-const ProfileInfo: React.FC<PropsType> = ({ profile, sendPhoto, isOwner, status, updateStatusTh, editProfile }) => {
+	const dispatch = useDispatch()
+	const editProf = (objProperti: InitialVFormik) => { dispatch(editProfile(objProperti)) }
+	const sendPhotoT = (file: File) => { dispatch(sendPhoto(file)) }
+	const updateStatusThT = (status: string) => { dispatch(updateStatusTh(status)) }
 
 	let [editMode, setEditMode] = useState(false);
 
-
-	let pf = profile;
-	if (!pf) {
+	if (!profile) {
 		return <Preloader />
 	}
 	const selectFile = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.length) {
-			sendPhoto(e.target.files[0])
+			sendPhotoT(e.target.files[0])
 		}
 	}
 
 	const editProfileData = (obj: InitialVFormik) => {
-		editProfile(obj);
+		editProf(obj);
 		setEditMode(false);
 	}
 
@@ -41,24 +41,20 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, sendPhoto, isOwner, status,
 		setEditMode(true);
 	}
 
-
 	return (
 		<div className={s.wrapper}>
 			<div>
 				<div className={s.pagePhoto}>
-					<img alt='' src={pf.photos.small || iconUser} className={s.userIcon} />
+					<img alt='' src={profile.photos.small || iconUser} className={s.userIcon} />
 				</div>
 
-				{isOwner && <input type={'file'} onChange={selectFile} />}
+				{/* {isOwner && <input type={'file'} onChange={selectFile} />} */}
 			</div>
 
-			{editMode ? <ContactProfileFrorm pf={pf} editProfileData={editProfileData} />
-				: <ContactProfile pf={pf} activeEditMode={activeEditMode} isOwner={isOwner} />}
+			{editMode ? <ContactProfileFrorm pf={profile} editProfileData={editProfileData} />
+				: <ContactProfile pf={profile} activeEditMode={activeEditMode} isOwner={false} />}
 
-			<ProfileStatusWithHook status={status} updateStatusTh={updateStatusTh} />
+			<ProfileStatusWithHook status={status} updateStatusTh={updateStatusThT} />
 		</div >
 	);
 }
-
-
-export default ProfileInfo;
