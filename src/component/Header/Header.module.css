@@ -1,15 +1,5 @@
-.header.active {
-	grid-area: h;
-	background-color: cyan;
-}
-.img {
-	width: 120px;
-	height: 60px;
-}
-.spn {
-	float: right;
-	margin: 20px 50px;
-}
-.spn a {
-	text-decoration: none;
+
+.name{
+	color: honeydew;
+	margin: 10%;
 }

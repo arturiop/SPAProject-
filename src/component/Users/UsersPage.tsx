@@ -5,10 +5,10 @@ import Preloader from "../common/Preloader/Preloader";
 import { getPageTotal, getPageCount, getCurrentPage, getIsFetching, getFilter }
 	from "../../redux/userSelect";
 import Search from "../Search/Search";
-import PageGenerator from "../common/PageGenerator/PageGenerator";
 import { Users } from "./User/Users";
 import { useHistory } from "react-router-dom";
 import Qs from "qs";
+import { Pagination } from 'antd'
 
 export type FilterType = {
 	term: string,
@@ -51,7 +51,7 @@ export const UsersPage: React.FC<PropsType> = (props) => {
 
 	const onSearchUsers = (filter: FilterType) => {
 
-		dispatch(getUsers(currentPage, pageCount, filter))
+		dispatch(getUsers(1, pageCount, filter))
 	}
 	const onChangeNumb = (currentPage: number) => {
 		dispatch(changePage(currentPage, pageCount, filter.term));
@@ -65,7 +65,6 @@ export const UsersPage: React.FC<PropsType> = (props) => {
 		history.push({
 			pathname: '/find/users',
 			search: Qs.stringify(query)
-			// `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
 		})
 	}, [filter, currentPage])
 
@@ -73,15 +72,7 @@ export const UsersPage: React.FC<PropsType> = (props) => {
 		{isFetching ? <Preloader /> : null}
 		{props.title}
 		<Search searchUsers={onSearchUsers} />
-		<PageGenerator pageTotal={pageTotal} pageCount={pageCount}
-			currentPage={currentPage} onChangeNumb={onChangeNumb} />
+		<Pagination defaultCurrent={1} total={pageTotal} defaultPageSize={pageCount} current={currentPage} onChange={onChangeNumb} />
 		<Users />
 	</>
 }
-
-
-
-
-	// <div>
-			// 	<button onClick={getUserFriends}>GetFiends</button>
-		// </div>

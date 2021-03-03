@@ -2,6 +2,7 @@ import userIcon from '../../../../img/images.png';
 import { NavLink } from 'react-router-dom';
 import s from './../Users.module.css';
 import { UserDataType } from '../../../../commonType/commonType';
+import { Button } from 'antd';
 
 type PropsType = {
 	item: UserDataType
@@ -18,15 +19,16 @@ const User: React.FC<PropsType> = ({ item, toggleFetching, unFollowTh, followTh 
 					<img className={s.photo} alt={''}
 						src={(item.photos.small != null) ? item.photos.small : userIcon} />
 				</NavLink>
-				<div>{item.followed
-					? <button disabled={toggleFetching.some((id: number) => id === item.id)}
-						onClick={() => { unFollowTh(item.id) }}>Unfollow</button>
-					: <button disabled={toggleFetching.some((id: number) => id === item.id)}
-						onClick={() => { followTh(item.id) }} >Follow</button>}
-				</div>
+
 			</div>
 			<div className={s.data}>
-				<div>{item.name}</div>
+				<div className={s.name}>{item.name}</div>
+				<div>{item.followed
+					? <Button type={'default'} disabled={toggleFetching.some((id: number) => id === item.id)}
+						onClick={() => { unFollowTh(item.id) }}>Unfollow</Button>
+					: <Button type={'primary'} disabled={toggleFetching.some((id: number) => id === item.id)}
+						onClick={() => { followTh(item.id) }} >Follow</Button>}
+				</div>
 			</div>
 		</div >
 	)

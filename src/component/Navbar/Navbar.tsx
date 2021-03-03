@@ -1,35 +1,36 @@
 import { NavLink } from 'react-router-dom';
-import FriendsContainer from '../Friends/FriendsContainer';
+import { Friends } from '../Friends/FriendsContainer';
 import s from './Navbar.module.css';
+import { Menu } from 'antd';
+
 const Navbar: React.FC = () => {
 	return (
-		<nav className={s.nav}>
-			<div className={s.item}>
+		<Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+			<Menu.Item key="1" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/profile">Profile</NavLink>
-			</div>
-			<div className={s.item}>
-				<div className={s.item}>
-					<NavLink activeClassName={s.active} to="/friends">Friends</NavLink>
-				</div>
+			</Menu.Item>
+			<Menu.Item key="2" icon={<div></div>}>
+				<NavLink activeClassName={s.active} to="/friends">Friends</NavLink>
+			</Menu.Item>
+			<Menu.Item key="3" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/dialogs">Messages</NavLink>
-			</div>
-			<div className={s.item}>
+			</Menu.Item>
+			<Menu.Item key="4" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/music">Music</NavLink>
-			</div >
-			<div className={s.item}>
+			</Menu.Item>
+			<Menu.Item key="5" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/news">News</NavLink>
-			</div>
-			<div className={s.item}>
+			</Menu.Item>
+			<Menu.Item key="6" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/find/users">Find Users</NavLink>
-			</div>
-			<div className={s.item}>
+			</Menu.Item>
+			<Menu.Item key="7" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/settings">Settings</NavLink>
-			</div>
+			</Menu.Item>
 			<div>
-				<FriendsContainer />
+				<Friends />
 			</div>
-
-		</nav>
+		</Menu>
 	);
 }
 export default Navbar;

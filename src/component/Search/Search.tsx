@@ -1,7 +1,12 @@
-import { Field, Form, Formik } from "formik"
+import { Button } from "antd"
+import { Formik, Form, Field } from "formik"
 import { useSelector } from "react-redux"
 import { getFilter } from "../../redux/userSelect"
 import { FilterType } from "../Users/UsersPage"
+import { SearchOutlined } from '@ant-design/icons';
+
+
+
 
 type FriendFormType = 'true' | 'false' | 'null'
 type initValuesType = {
@@ -12,7 +17,10 @@ type initValuesType = {
 type PropsType = {
 	searchUsers: (filter: FilterType) => void
 }
-
+const layout = {
+	labelCol: { span: 2 },
+	wrapperCol: { span: 3 },
+}
 
 const Search: React.FC<PropsType> = (props) => {
 	const filter = useSelector(getFilter)
@@ -40,14 +48,32 @@ const Search: React.FC<PropsType> = (props) => {
 			}}
 		>{props => {
 			return <Form>
-				<Field name={'term'} />
+
+				{/* <Input style={{ width: '30%' }} name={'term'} />
+				<Select showSearch style={{ width: '15%' }}
+					placeholder="Search to Select">
+					<Option value="null">All Users</Option>
+					<Option value="true">Friends</Option>
+					<Option value="false">Not signed yet </Option>
+				</Select >
+
+				<Input.Group compact>
+					<Input style={{ width: '30%' }} name={'term'} />
+					<Select showSearch defaultValue="" style={{ width: '15%' }}
+						placeholder="Search to Select">
+						<Option value="null">All Users</Option>
+						<Option value="true">Friends</Option>
+						<Option value="false">Not signed yet </Option>
+					</Select>
+				</Input.Group> */}
+
+				<Field name="term" />
 				<Field name="friend" as="select">
 					<option value="null">All</option>
 					<option value="true">Friends</option>
 					<option value="false">Unfollow</option>
 				</Field>
-
-				<button type={'submit'} >Search</button>
+				<Button type='link' icon={<SearchOutlined />} htmlType={'submit'}> Search</Button >
 			</Form>
 		}}
 		</Formik>
@@ -55,3 +81,6 @@ const Search: React.FC<PropsType> = (props) => {
 }
 
 export default Search
+
+
+

@@ -39,7 +39,11 @@
 .img_and_bt {
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 20%;
 }
 .data {
 	padding: 5px;
+}
+.name{
+	margin-bottom: 3%;
 }

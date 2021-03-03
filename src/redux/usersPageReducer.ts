@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
-import { APIResponseType } from "../api/api";
+
 import { usersAPI } from "../api/usersApi";
 import { UserDataType } from "../commonType/commonType";
 import { FilterType } from "../component/Users/UsersPage";
@@ -13,14 +13,14 @@ export type InitializStateType = typeof initializState;
 let initializState = {
 	userData: [] as Array<UserDataType>,
 	pageTotal: 20,
-	pageCount: 3,
+	pageCount: 10,
 	currentPage: 1,
 	isFetching: false,
 	toggleFetching: [] as Array<number>,
 	filter: {
 		term: '',
 		friend: null as null | boolean
-	} as FilterType
+	} as FilterType,
 };
 
 const userReducer = (state = initializState, action: ActionType): InitializStateType => {

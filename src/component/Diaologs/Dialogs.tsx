@@ -3,17 +3,21 @@ import s from './Dialogs.module.css';
 import Messages from './Messages/Messages';
 import React from 'react';
 import { Form, Formik, Field } from 'formik';
-import { DialogType, MessageType, InitialStateTypeDialog } from '../../redux/dialogdsPageReduser';
+import { DialogType, MessageType, addCreactorMessage } from '../../redux/dialogdsPageReduser';
+import { AppStateType } from '../../redux/reduxStore';
+import { useDispatch, useSelector } from 'react-redux';
 
-type PropsType = {
-	data: InitialStateTypeDialog
-	newMessagess: (str: string) => void
-}
-const Dialogs: React.FC<PropsType> = ({ data, newMessagess }) => {
-	let dialogElements = data.dialogsData
+
+const Dialogs: React.FC = () => {
+
+	const dispatch = useDispatch()
+	const dialogsData = useSelector((state: AppStateType) => state.dialogsPage.dialogsData)
+	const messagesData = useSelector((state: AppStateType) => state.dialogsPage.messagesData)
+	const newMessagess = (str: string) => dispatch(addCreactorMessage(str))
+	let dialogElements = dialogsData
 		.map((dialog: DialogType) => <DialogItem key={dialog.id} dialog={dialog} />);
 
-	let messagesElements = data.messagesData
+	let messagesElements = messagesData
 		.map((message: MessageType) => <Messages key={message.id} message={message} />);
 
 	return (
