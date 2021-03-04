@@ -3,6 +3,7 @@ import User from './User/User';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToggleFetching, getUser } from '../../../redux/userSelect';
 import { followTh, unFollowTh } from '../../../redux/usersPageReducer';
+import { UserDataType } from '../../../commonType/commonType';
 
 type PropsType = {}
 export const Users: React.FC<PropsType> = (props) => {
@@ -18,7 +19,7 @@ export const Users: React.FC<PropsType> = (props) => {
 		dispatch(unFollowTh(userid))
 	}
 
-	let userAccount = uses.map(item =>
+	let userAccount = uses.map((item: UserDataType) =>
 		<User key={item.id} item={item} toggleFetching={toggleFetching}
 			unFollowTh={unFollowThy} followTh={followThy} />)
 

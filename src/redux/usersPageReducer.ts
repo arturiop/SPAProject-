@@ -1,6 +1,5 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
-
 import { usersAPI } from "../api/usersApi";
 import { UserDataType } from "../commonType/commonType";
 import { FilterType } from "../component/Users/UsersPage";
@@ -8,7 +7,7 @@ import { ActionsTypes, AppStateType, CommonThunkActionType } from "./reduxStore"
 
 
 type ActionType = ActionsTypes<typeof action>
-export type InitializStateType = typeof initializState;
+export type InitializStateType = typeof initializState
 
 let initializState = {
 	userData: [] as Array<UserDataType>,
@@ -19,11 +18,11 @@ let initializState = {
 	toggleFetching: [] as Array<number>,
 	filter: {
 		term: '',
-		friend: null as null | boolean
-	} as FilterType,
+		friend: null as boolean | null
+	} as FilterType
 };
 
-const userReducer = (state = initializState, action: ActionType): InitializStateType => {
+const userReducer = (state = initializState, action: ActionType): any => {
 	switch (action.type) {
 		case 'FOLLOW':
 			return {
