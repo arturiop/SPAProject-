@@ -4,8 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
-/vscode
-*tsconfig.json
+
+/.vscode
+
 
 # testing
 /coverage
