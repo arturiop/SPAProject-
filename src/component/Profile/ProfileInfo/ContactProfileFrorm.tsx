@@ -5,6 +5,7 @@ import { ContactsType, ProfileType } from '../../../commonType/commonType';
 
 type PropsType = {
 	pf: ProfileType
+	isOwner: boolean
 	editProfileData: (obj: InitialVFormik) => void
 }
 export type InitialVFormik = {
@@ -12,8 +13,10 @@ export type InitialVFormik = {
 	lookingForAJobDescription: string
 	aboutMe: string
 	contacts?: ContactsType
+
 }
 const ContactProfileFrorm: React.FC<PropsType> = ({ pf, editProfileData }) => {
+
 	const validSchem = Yup.object().shape({
 		fullName: Yup.string().min(5).required("invalid")
 	})

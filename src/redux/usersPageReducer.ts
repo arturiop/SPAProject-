@@ -22,7 +22,7 @@ let initializState = {
 	} as FilterType
 };
 
-const userReducer = (state = initializState, action: ActionType): any => {
+const userReducer = (state = initializState, action: ActionType): InitializStateType => {
 	switch (action.type) {
 		case 'FOLLOW':
 			return {

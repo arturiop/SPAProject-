@@ -27,6 +27,9 @@ const Navbar: React.FC = () => {
 			<Menu.Item key="7" icon={<div></div>}>
 				<NavLink activeClassName={s.active} to="/settings">Settings</NavLink>
 			</Menu.Item>
+			<Menu.Item key="8" icon={<div></div>}>
+				<NavLink activeClassName={s.active} to="/chat">Common Chat</NavLink>
+			</Menu.Item>
 			<div>
 				<Friends />
 			</div>

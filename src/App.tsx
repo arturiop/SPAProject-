@@ -1,7 +1,8 @@
 import 'antd/dist/antd.css';
 import './App.css';
 import Navbar from './component/Navbar/Navbar';
-import { BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter }
+	from 'react-router-dom';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
 import News from './component/News/News';
@@ -9,7 +10,7 @@ import { Friends } from './component/Friends/FriendsContainer';
 import { UsersPage } from './component/Users/UsersPage';
 import { LoginPage } from './component/login/Login';
 import React, { Suspense, useEffect } from 'react';
-import { connect, Provider, useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { initializeApp } from './redux/appReduser';
 import { compose } from 'redux';
 import Preloader from './component/common/Preloader/Preloader';
@@ -22,6 +23,7 @@ import { singOutTh } from './redux/authReduser';
 const { Header, Content, Footer, Sider } = Layout;
 const Dialogs = React.lazy(() => import('./component/Diaologs/Dialogs'));
 const ProfileContainer = React.lazy(() => import('./component/Profile/ProfContainer'));
+const ChatPages = React.lazy(() => import('./component/pages/ChatPages'));
 
 const App: React.FC = () => {
 	const tailLayout = {
@@ -31,6 +33,7 @@ const App: React.FC = () => {
 	const dispatch = useDispatch()
 	const isAuth = useSelector((state: AppStateType) => state.auth.isAuth)
 	const singOut = (() => dispatch(singOutTh()))
+
 	const catchAllerrors = (e: PromiseRejectionEvent) => {
 		alert("errors"); // вызываем не алерт а санку(нужно сделать ) и там дисппат сделать изменить стейт вывести текст где то как с капей и как то убирать 
 	}
@@ -48,10 +51,10 @@ const App: React.FC = () => {
 				breakpoint="lg"
 				collapsedWidth="0"
 				onBreakpoint={broken => {
-					console.log(broken);
+
 				}}
 				onCollapse={(collapsed, type) => {
-					console.log(collapsed, type);
+
 				}}
 			>
 				<div className="logo" />
@@ -82,6 +85,13 @@ const App: React.FC = () => {
 							<Route path='/dialogs' render={() => {
 								return <Suspense fallback={<div>loading...</div>}>
 									<Dialogs />
+								</Suspense>
+							}
+							} />
+							< Route path='/chat' render={() => {
+								return <Suspense fallback={
+									<div>loading...</div>}>
+									<ChatPages />
 								</Suspense>
 							}
 							} />

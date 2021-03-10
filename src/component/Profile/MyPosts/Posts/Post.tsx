@@ -9,7 +9,6 @@ type PropsType = {
 }
 
 const Post: React.FC<PropsType> = memo(({ post, deletedPost }) => {
-
 	const ii = new Date().toLocaleTimeString();
 	let response = "abubandit";
 

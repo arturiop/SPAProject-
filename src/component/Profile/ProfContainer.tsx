@@ -42,7 +42,7 @@ export const ProfConteiner: React.FC<PropsType> = (props) => {
 	useEffect(() => { refreshProfile() }, [props.match.params.userId])
 	return (
 		<div className={s.content} >
-			<ProfileInfo />
+			<ProfileInfo isOwner={!props.match.params.userId} />
 			<MyPosts />
 		</div >
 	)
