@@ -2,7 +2,7 @@ import userReducer, { action, InitializStateType } from "./usersPageReducer"
 
 let state: InitializStateType;
 beforeEach(() => {
-	state = {
+	let state = {
 
 		userData: [{
 			uniqueUrlName: null,

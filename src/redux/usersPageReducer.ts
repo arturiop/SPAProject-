@@ -16,7 +16,10 @@ let initializState = {
 	currentPage: 1,
 	isFetching: false,
 	toggleFetching: [] as Array<number>,
-
+	filter: {
+		term: '',
+		friend: null as boolean | null
+	} as FilterType
 };
 
 const userReducer = (state = initializState, action: ActionType): InitializStateType => {
