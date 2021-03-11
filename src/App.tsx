@@ -23,7 +23,7 @@ import { singOutTh } from './redux/authReduser';
 const { Header, Content, Footer, Sider } = Layout;
 const Dialogs = React.lazy(() => import('./component/Diaologs/Dialogs'));
 const ProfileContainer = React.lazy(() => import('./component/Profile/ProfContainer'));
-const ChatPages = React.lazy(() => import('./component/pages/ChatPages'));
+// const ChatPages = React.lazy(() => import('./component/pages/ChatPages'));
 
 const App: React.FC = () => {
 	const tailLayout = {
@@ -91,7 +91,7 @@ const App: React.FC = () => {
 							< Route path='/chat' render={() => {
 								return <Suspense fallback={
 									<div>loading...</div>}>
-									<ChatPages />
+									{/* <ChatPages /> */}
 								</Suspense>
 							}
 							} />
