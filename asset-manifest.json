@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/SPAProject-/static/css/main.419dc68d.chunk.css",
-    "main.js": "/SPAProject-/static/js/main.706cd6f3.chunk.js",
-    "main.js.map": "/SPAProject-/static/js/main.706cd6f3.chunk.js.map",
+    "main.js": "/SPAProject-/static/js/main.af3c8729.chunk.js",
+    "main.js.map": "/SPAProject-/static/js/main.af3c8729.chunk.js.map",
     "runtime-main.js": "/SPAProject-/static/js/runtime-main.6a9aa028.js",
     "runtime-main.js.map": "/SPAProject-/static/js/runtime-main.6a9aa028.js.map",
     "static/css/2.a61f0ae8.chunk.css": "/SPAProject-/static/css/2.a61f0ae8.chunk.css",
@@ -31,6 +31,6 @@
     "static/css/2.a61f0ae8.chunk.css",
     "static/js/2.e63d6e31.chunk.js",
     "static/css/main.419dc68d.chunk.css",
-    "static/js/main.706cd6f3.chunk.js"
+    "static/js/main.af3c8729.chunk.js"
   ]
 }
